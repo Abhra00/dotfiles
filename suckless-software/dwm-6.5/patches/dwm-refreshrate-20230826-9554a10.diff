@@ -1,0 +1,56 @@
+From 9554a109e240789f76f0ece3e62f9014ceb8a4bc Mon Sep 17 00:00:00 2001
+From: sewn <sewn@disroot.org>
+Date: Sat, 26 Aug 2023 22:57:51 +0300
+Subject: [PATCH] dwm: remove resize/move limitation
+
+we have modern machines, and we have high refresh rate monitors;
+this makes resizing and moving windows have no limit when refreshing.
+---
+ dwm.c | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/dwm.c b/dwm.c
+index f1d86b2..4c00cbe 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1149,7 +1149,6 @@ movemouse(const Arg *arg)
+ 	Client *c;
+ 	Monitor *m;
+ 	XEvent ev;
+-	Time lasttime = 0;
+ 
+ 	if (!(c = selmon->sel))
+ 		return;
+@@ -1172,10 +1171,6 @@ movemouse(const Arg *arg)
+ 			handler[ev.type](&ev);
+ 			break;
+ 		case MotionNotify:
+-			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
+-				continue;
+-			lasttime = ev.xmotion.time;
+-
+ 			nx = ocx + (ev.xmotion.x - x);
+ 			ny = ocy + (ev.xmotion.y - y);
+ 			if (abs(selmon->wx - nx) < snap)
+@@ -1304,7 +1299,6 @@ resizemouse(const Arg *arg)
+ 	Client *c;
+ 	Monitor *m;
+ 	XEvent ev;
+-	Time lasttime = 0;
+ 
+ 	if (!(c = selmon->sel))
+ 		return;
+@@ -1326,10 +1320,6 @@ resizemouse(const Arg *arg)
+ 			handler[ev.type](&ev);
+ 			break;
+ 		case MotionNotify:
+-			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
+-				continue;
+-			lasttime = ev.xmotion.time;
+-
+ 			nw = MAX(ev.xmotion.x - ocx - 2 * c->bw + 1, 1);
+ 			nh = MAX(ev.xmotion.y - ocy - 2 * c->bw + 1, 1);
+ 			if (c->mon->wx + nw >= selmon->wx && c->mon->wx + nw <= selmon->wx + selmon->ww
+-- 
+2.42.0
+

@@ -1,0 +1,23 @@
+[font]
+size   = 9.0
+
+[font.normal]
+family = "FantasqueSansM  Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "FantasqueSansM Nerd Font"
+style  = "Bold"
+
+[font.bold_italic]
+family = "FantasqueSansM Nerd Font"
+style  = "Bold Italic"
+
+[font.italic]
+family = "FantasqueSansM Nerd Font"
+style  = "Italic"
+
+
+[font.offset]
+x = 1
+y = 1

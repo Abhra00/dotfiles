@@ -1,0 +1,198 @@
+###--------------------------------------------------------------------------------------------------------###
+# ████████ ██   ██ ███████      ██████   ██████  ██████       ██████  ██████  ███    ██ ███████ ██  ██████   #
+#    ██    ██   ██ ██          ██       ██    ██ ██   ██     ██      ██    ██ ████   ██ ██      ██ ██        #
+#    ██    ███████ █████       ██   ███ ██    ██ ██   ██     ██      ██    ██ ██ ██  ██ █████   ██ ██   ███  #
+#    ██    ██   ██ ██          ██    ██ ██    ██ ██   ██     ██      ██    ██ ██  ██ ██ ██      ██ ██    ██  #
+#    ██    ██   ██ ███████      ██████   ██████  ██████       ██████  ██████  ██   ████ ██      ██  ██████   #
+#                                                                                                            #
+###--------------------------------------------------------------------------------------------------------###                                                                                                          
+
+
+###-------------------Setting up mod key--------------------###
+###---------------------------------------------------------###
+set $mod Mod4
+
+
+###-------------------Setting up font-----------------------###
+###---------------------------------------------------------###
+font pango:JetBrains Mono Nerd Font 9
+
+###-------------------Autostart----------------------------###
+###--------------------------------------------------------###
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec_always --no-startup-id ~/.config/i3/autostart.sh
+
+###-----------------Autostart scratchpads-----------------###
+###-------------------------------------------------------###
+exec_always --no-startup-id pgrep -f '^alacritty --class spterm,spterm' || alacritty --class spterm,spterm
+exec_always --no-startup-id pgrep -f '^alacritty --class spfm,spfm' || alacritty --class spfm,spfm -e ranger
+exec_always --no-startup-id pgrep -f '^alacritty --class spmusic,spmusic' || alacritty --class spmusic,spmusic -e ncmpcpp
+
+###----------------Multimedia Keys-------------------------###
+###--------------------------------------------------------###
+bindsym XF86AudioRaiseVolume exec --no-startup-id volume up && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id volume down && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id volume mute && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+###---------------Use Mouse+$mod to drag floating windows to their wanted position & tiling modifier-------------###
+###--------------------------------------------------------------------------------------------------------------###
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+###---------------------System controls----------------###
+###----------------------------------------------------###
+
+###-----Terminal-----###
+###------------------###
+bindsym $mod+Shift+Return exec --no-startup-id alacritty
+
+###-----Killing a window----###
+###-------------------------###
+bindsym $mod+Shift+c kill
+
+###------------Run launcher & menus-------------###
+###---------------------------------------------###
+bindsym $mod+p exec --no-startup-id rofi -show drun -theme ~/.config/rofi/config.rasi
+bindsym $mod+Shift+q exec --no-startup-id ~/.config/i3/scripts/powermenu
+
+
+###-------------------Scratchpads-------------###
+###-------------------------------------------###
+bindsym $mod+Shift+y [class="spterm"] scratchpad show; move position center
+bindsym $mod+Shift+u [class="spfm"] scratchpad show; move position center
+bindsym $mod+Shift+m [class="spmusic"] scratchpad show; move position center
+bindsym $mod+Home move scratchpad
+bindsym $mod+End scratchpad show
+
+###-----------------------Reloding & Exiting--------------------###
+###---------------------------------------------------------###
+bindsym $mod+Shift+r reload
+bindsym $mod+Control+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+###------------change focus-----------------###
+###-----------------------------------------###
+bindsym $mod+j focus up
+bindsym $mod+k focus down
+bindsym $mod+l focus left
+bindsym $mod+h focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+###----------move focused window---------###
+###--------------------------------------###
+bindsym $mod+Shift+j move up
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move left
+bindsym $mod+Shift+h move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+###---------split  horizontal----------###
+###------------------------------------###
+bindsym $mod+u split h
+
+###--------split vertical------------###
+###----------------------------------###
+bindsym $mod+o split v
+
+###--------Toggle fullscreen--------###
+###---------------------------------###
+bindsym $mod+f fullscreen toggle
+
+
+###-----------Layout manipulation (stacked, tabbed, toggle split)----------###
+###------------------------------------------------------------------------###
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+###-----------toggle tiling / floating-----------###
+###----------------------------------------------###
+bindsym $mod+Shift+f floating toggle
+
+###----toggle focus between tiling / floating windows---###
+###-----------------------------------------------------###
+bindsym $mod+space focus mode_toggle
+
+###----------focus parent/child container-------###
+###---------------------------------------------###
+bindsym $mod+a focus parent
+#bindsym $mod+d focus child
+
+###-------------------------------Workspaces-------------------------###
+###------------------------------------------------------------------###
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+###-------------workspace keybinds------------------###
+###-------------------------------------------------###
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+
+###-----------------------Resizing Windows-------------------###
+###----------------------------------------------------------###
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+
+
+###------------------------------Rules----------------------###
+###---------------------------------------------------------###
+include $HOME/.config/i3/rules.conf
+
+###----------------------------Theme & Bar------------------------###
+###---------------------------------------------------------------###
+include $HOME/.config/i3/themes/gruvbox/gruvbox.conf
+
+

@@ -1,0 +1,69 @@
+From 54b88e6663364d561fc0feb3ea9d4c79c0f4e3b0 Mon Sep 17 00:00:00 2001
+From: Dylan Cairns-Howarth <dairnarth@dylancairns.co.uk>
+Date: Sun, 20 Feb 2022 07:48:59 +0000
+Subject: [PATCH] Floating Windows have seperate border width
+
+This dwm patch adds the int fborderpx to config.def.h that assigns a
+border width to floating windows.
+
+By default, this patch sets borderpx to 0 and fborderpx to 1 (no borders
+for tiled windows and a 1px border for floating windows).
+---
+ config.def.h |  4 ++--
+ dwm.c        | 13 +++++++++++--
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index a2ac963..ce35589 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,7 +1,8 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+-static const unsigned int borderpx  = 1;        /* border pixel of windows */
++static const unsigned int borderpx  = 0;        /* border pixel of windows */
++static const unsigned int fborderpx = 1;        /* border pixel of floating windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+@@ -113,4 +114,3 @@ static Button buttons[] = {
+ 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+ 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+ };
+-
+diff --git a/dwm.c b/dwm.c
+index a96f33c..a63e9cd 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1052,6 +1052,8 @@ manage(Window w, XWindowAttributes *wa)
+ 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
+ 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
+ 	c->bw = borderpx;
++	if (c->isfloating)
++		c->bw = fborderpx;
+ 
+ 	wc.border_width = c->bw;
+ 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
+@@ -1719,9 +1721,16 @@ togglefloating(const Arg *arg)
+ 	if (selmon->sel->isfullscreen) /* no support for fullscreen windows */
+ 		return;
+ 	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
+-	if (selmon->sel->isfloating)
++	if (selmon->sel->isfloating) {
++		selmon->sel->bw = fborderpx;
++		configure(selmon->sel);
++        int borderdiff = (fborderpx - borderpx) * 2;
+ 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
+-			selmon->sel->w, selmon->sel->h, 0);
++			selmon->sel->w - borderdiff, selmon->sel->h - borderdiff, 0);
++	} else {
++		selmon->sel->bw = borderpx;
++		configure(selmon->sel);
++	}
+ 	arrange(selmon);
+ }
+ 
+-- 
+2.35.1
+

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Display an icon if the microphone is muted.
+
+if pactl get-source-mute @DEFAULT_SOURCE@ | grep -q "^Mute: no"; then
+    printf "%s\n" "🎙"
+fi
+
+printf "%s%s\n" "🎙" "muted"

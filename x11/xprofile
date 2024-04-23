@@ -1,0 +1,5 @@
+#!/bin/sh
+# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment to use Xresources colors/settings on startup
+# Ensure that xrdb has finished running before moving on to start the WM/DE.
+xmodmap -e "clear control" -e "add control = Control_L" -e "clear mod3" -e "add mod3 = Control_R" 
+[ -n "$xrdbpid" ] && wait "$xrdbpid"

@@ -1,2 +1,1 @@
-# dotfiles
-My linux dotfiles for programs &amp; wm(s)
+# My dot files for programs & wm(s)

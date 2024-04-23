@@ -1,0 +1,25 @@
+# Colors (oxide)
+
+[colors.primary]
+background = "#000000"
+foreground = "#eeeeee"
+
+[colors.normal]
+black   = "#1b1d1e"
+red     = "#d84949"
+green   = "#5f875f"
+yellow  = "#737074"
+blue    = "#005f87"
+magenta = "#737271"
+cyan    = "#008080"
+white   = "#c5c5be"
+
+[colors.bright]
+black   = "#505354"
+red     = "#d84949"
+green   = "#5f875f"
+yellow  = "#909495"
+blue    = "#005f87"
+magenta = "#9a999d"
+cyan    = "#008080"
+white   = "#dadad5"

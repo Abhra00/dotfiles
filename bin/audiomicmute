@@ -1,0 +1,3 @@
+#!/bin/sh
+wpctl set-mute @DEFAULT_SOURCE@ toggle
+kill -45 $(pidof dwmblocks)

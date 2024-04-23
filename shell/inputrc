@@ -1,0 +1,21 @@
+set colored-stats On
+set colored-completion-prefix On
+
+set show-all-if-ambiguous On
+set completion-ignore-case On
+set completion-display-width 0
+set completion-query-items 1000
+
+set echo-control-characters Off
+
+"\e[A": history-search-backward
+"\e[B": history-search-foreward
+
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+
+"\C-f":"cd /home/jake/.config"
+"\C-b":"cd ..\n"
+"\C-h":"cd\n"
+"\C-w":"webserver\n"
+"\es":"\C-asudo \C-e"

@@ -1,0 +1,12 @@
+#!/bin/sh
+# Signal the statusbar's music block whenever the music player changes state.
+# Supports MPRIS-compatible music players and mpd.
+
+{
+    playerctl metadata --follow --format "{{title}}{{artist}}{{status}}" &
+    while ! mpc idleloop 2>/dev/null; do
+        sleep 1
+    done
+} | while read -r _; do
+    pkill -RTMIN+2 "$STATUSBAR"
+done
