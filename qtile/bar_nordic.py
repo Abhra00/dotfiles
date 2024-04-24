@@ -1,5 +1,8 @@
+from libqtile import qtile
 from libqtile.bar import Bar
 from libqtile.widget.volume import Volume
+from libqtile.widget.sep import Sep
+from libqtile.widget.image import Image
 from libqtile.widget.currentlayout import CurrentLayoutIcon
 from libqtile.widget.battery import Battery
 from libqtile.widget.clock import Clock
@@ -12,7 +15,6 @@ from libqtile.widget.spacer import Spacer
 from libqtile.widget.systray import Systray
 from libqtile.widget.window_count import WindowCount
 from libqtile.widget.windowname import WindowName
-
 from unicodes import left_half_circle, right_arrow, left_arrow, right_half_circle, lower_left_triangle, lower_right_triangle
 from colors import Nordic
 
@@ -20,16 +22,30 @@ BAR_HEIGHT = 18
 # BAR_MARGIN = 5
 
 bar = Bar([
-    GroupBox(
-        disable_drag=True,
-        active=Nordic['nord4'],
-        inactive=Nordic['nord3'],
-        highlight_method='line',
-        block_highlight_text_color=Nordic['nord11'],
-        borderwidth=0,
-        highlight_color=Nordic['nord0'],
-        background=Nordic['nord0'],
+    Sep(
+        linewidth=0,
+        padding=10,
+        foreground=Nordic['nord0'],
+        background = Nordic['nord11']
     ),
+    Image(
+        filename="~/.config/qtile/icons/qtile.png",
+        scale="False",
+        background=Nordic['nord11'],
+        margin_y=-2,
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("rofi -show drun -theme ~/.config/rofi/config.rasi")}
+    ),
+    lower_right_triangle(Nordic['nord0'], Nordic['nord11']),
+    GroupBox(
+        font = "FontAwesome Bold", fontsize = 12,
+        margin_y = 3, margin_x = 0, padding_y = 5, padding_x = 5,
+        borderwidth = 3, rounded = False,
+        active = Nordic['nord4'], inactive = Nordic['nord3'],
+        highlight_color = Nordic['nord0'], highlight_method = "line",
+        this_current_screen_border = Nordic['nord11'], this_screen_border = Nordic ['nord11'],
+        other_current_screen_border = Nordic['nord12'], other_screen_border = Nordic['nord11'],
+        foreground = Nordic['nord4'], background = Nordic['nord0']
+    ),    
     lower_right_triangle(Nordic['nord3'], Nordic['nord0']),
     CurrentLayoutIcon(
         background=Nordic['nord3'],

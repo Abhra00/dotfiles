@@ -38,14 +38,14 @@ bar = Bar([
     ),
     lower_right_triangle(Oxide['background'], Oxide['cyan']),
     GroupBox(
-        disable_drag=True,
-        active=Oxide['foreground'],
-        inactive=Oxide['gray'],
-        highlight_method='line',
-        block_highlight_text_color=Oxide['foreground-alt'],
-        borderwidth=0,
-        highlight_color=Oxide['background'],
-        background=Oxide['background'],
+        font = "FontAwesome Bold", fontsize = 12,
+        margin_y = 3, margin_x = 0, padding_y = 5, padding_x = 5,
+        borderwidth = 3, rounded = False,
+        active = Oxide['cyan'], inactive = Oxide['gray'],
+        highlight_color = Oxide['background'], highlight_method = "line",
+        this_current_screen_border = Oxide['red'], this_screen_border = Oxide ['red'],
+        other_current_screen_border = Oxide['green'], other_screen_border = Oxide['red'],
+        foreground = Oxide['foreground'], background = Oxide['background']
     ),
     lower_right_triangle(Oxide['red'], Oxide['background']),
     CurrentLayoutIcon(
