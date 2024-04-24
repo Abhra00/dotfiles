@@ -5,9 +5,10 @@
 
 url="${WTTRURL:-wttr.in}"
 weatherreport="${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
+LOCATION="memari"
 
 # Get a weather report from 'wttr.in' and save it locally.
-getforecast() { timeout --signal=1 2s curl -sf "$url/barddhaman" > "$weatherreport" || exit 1; }
+getforecast() { timeout --signal=1 2s curl -sf "$url/$LOCATION" > "$weatherreport" || exit 1; }
 
 # Forecast should be updated only once a day.
 checkforecast() {

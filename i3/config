@@ -25,9 +25,9 @@ exec_always --no-startup-id ~/.config/i3/autostart.sh
 
 ###-----------------Autostart scratchpads-----------------###
 ###-------------------------------------------------------###
-exec_always --no-startup-id pgrep -f '^alacritty --class spterm,spterm' || alacritty --class spterm,spterm
-exec_always --no-startup-id pgrep -f '^alacritty --class spfm,spfm' || alacritty --class spfm,spfm -e ranger
-exec_always --no-startup-id pgrep -f '^alacritty --class spmusic,spmusic' || alacritty --class spmusic,spmusic -e ncmpcpp
+exec_always --no-startup-id pgrep -f '^kitty --class spterm,spterm' || kitty --class spterm,spterm
+exec_always --no-startup-id pgrep -f '^kitty --class spfm,spfm' || kitty --class spfm,spfm -e ranger
+exec_always --no-startup-id pgrep -f '^kitty --class spmusic,spmusic' || kitty --class spmusic,spmusic -e ncmpcpp
 
 ###----------------Multimedia Keys-------------------------###
 ###--------------------------------------------------------###
@@ -46,7 +46,7 @@ tiling_drag modifier titlebar
 
 ###-----Terminal-----###
 ###------------------###
-bindsym $mod+Shift+Return exec --no-startup-id alacritty
+bindsym $mod+Shift+Return exec --no-startup-id kitty
 
 ###-----Killing a window----###
 ###-------------------------###
