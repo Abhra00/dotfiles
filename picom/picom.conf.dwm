@@ -12,7 +12,7 @@ shadow = false
 
 # The blur radius for shadows, in pixels. (defaults to 12)
 # shadow-radius = 12
-shadow-radius = 7;
+shadow-radius = 15;
 
 # The opacity of shadows. (0.0 - 1.0, defaults to 0.75)
 # shadow-opacity = .75
@@ -50,6 +50,9 @@ shadow-exclude = [
   "class_g = 'Cairo-clock'",
   "_GTK_FRAME_EXTENTS@:c",
   "class_g = 'firefox' && argb",
+  "class_g = 'dwmsystray'",
+  "class_g = 'dwm'",
+  "class_g = 'dmenu'",
 ];
 
 # Specify a list of conditions of windows that should have no shadow painted over, such as a dock window.
@@ -145,13 +148,16 @@ opacity-rule = [ "100:class_g = 'firefox' && argb" ];
 # Sets the radius of rounded window corners. When > 0, the compositor will
 # round the corners of windows. Does not interact well with
 # `transparent-clipping`.
-corner-radius = 0
+# corner-radius = 12
 
 # Exclude conditions for rounded corners.
 rounded-corners-exclude = [
 #  "window_type = 'dock'",
   "window_type = 'desktop'",
-  "class_g = 'Vmware-view'"
+  "class_g = 'Vmware-view'",
+  "class_g = 'dwm'",
+  "class_g = 'dwmsystray'",
+  "class_g = 'dmenu'",
 ];
 
 #################################
