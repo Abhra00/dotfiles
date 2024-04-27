@@ -14,6 +14,7 @@
 
 import os
 import re
+import random
 import socket
 import subprocess
 from libqtile import qtile
@@ -25,8 +26,8 @@ from typing import List
 from libqtile.backend.x11 import window
 from libqtile.confreader import ConfigError
 from libqtile.widget import base
-from colors import Oxide
-from bar_oxide import bar
+from colors import Gruvbox
+from bar_gruvbox import bar
 
 
 mod      = "mod4"
@@ -151,13 +152,13 @@ dgroups_key_binder = simple_key_binder("mod4")
 ###---------------------------------------###
 layout_theme = {"border_width": 3,
                 "margin": 5,
-                "border_focus": Oxide['aborder'],
-                "border_normal": Oxide['nborder']
+                "border_focus": Gruvbox['dark-red'],
+                "border_normal": Gruvbox['dark-gray']
 }
 
 layout_floating_theme = {"border_width": 5,
-                         "border_focus": Oxide['float-border'],
-			 "border_normal": Oxide['nborder']
+                         "border_focus": Gruvbox['dark-purple'],
+			 "border_normal": Gruvbox['dark-gray']
 }
 
 layouts = [
@@ -184,9 +185,24 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+###-----------------------setting up wallpaper and bar---------------------------###
+###------------------------------------------------------------------------------###
+def get_random_image_filepath(directory):
+    full_directory_path = os.path.abspath(directory)
+    print("Full directory path:", full_directory_path)
+    image_files = [f for f in os.listdir(full_directory_path) if f.endswith('.png') or f.endswith('.jpg')]
+    if not image_files:
+        raise ValueError("No .png or .jpg files found in the directory.")
+    random_image_filename = random.choice(image_files)
+    random_image_filepath = os.path.join(full_directory_path, random_image_filename)
+    return random_image_filepath
+
+directory_path = '/home/bugs/wallpapers/gruvbox-wallpapers/'
+random_image_path = get_random_image_filepath(directory_path)
+
 screens = [
     Screen(top=bar,
-    wallpaper='~/wallpapers/oxide-wallpapers/wallhaven-4vzdk5_1920x1080.png',
+    wallpaper=random_image_path,
     wallpaper_mode='fill'
     )
 ]
@@ -214,7 +230,6 @@ floating_layout = layout.Floating( **layout_floating_theme,
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(wm_class="mpv"),  # mpv
         Match(wm_class="thunar"),  # file manager
     ]
 )
