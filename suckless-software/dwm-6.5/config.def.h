@@ -1,44 +1,66 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static unsigned int borderpx             = 3;        /* border pixel of windows */
-static const unsigned int fborderpx      = 5;        /* border pixel of floating windows */
-static unsigned int snap                 = 32;       /* snap pixel */
-static unsigned int gappih               = 20;       /* horiz inner gap between windows */
-static unsigned int gappiv               = 10;       /* vert inner gap between windows */
-static unsigned int gappoh               = 10;       /* horiz outer gap between windows and screen edge */
-static unsigned int gappov               = 30;       /* vert outer gap between windows and screen edge */
-static       int smartgaps               = 0;        /* 1 means no outer gap when there is only one window */
-static int swallowfloating               = 0;        /* 1 means swallow floating windows by default */
-static const unsigned int systraypinning = 0;        /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft  = 1;        /* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;        /* systray spacing */
-static const int systraypinningfailfirst = 1;        /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray             = 1;        /* 0 means no systray */
-static int showbar                       = 1;        /* 0 means no bar */
-static int topbar                        = 1;        /* 0 means bottom bar */
-static int floatposgrid_x                = 5;        /* float grid columns */
-static int floatposgrid_y                = 5;        /* float grid rows */
-static char font[]                       = "mono:size=10";
-static char dmenufont[]                  = "mono:size=10";
-static const char *fonts[]               = { font, "Noto Color Emoji:size=10", "Symbols Nerd Font:size=10" };
-static char normbgcolor[]                = "#222222";
-static char normbordercolor[]            = "#444444";
-static char normfgcolor[]                = "#bbbbbb";
-static char selfgcolor[]                 = "#eeeeee";
-static char selbordercolor[]             = "#770000";
-static char selbgcolor[]                 = "#005577";
-static char seltitlecolor[]              = "#eeeeee";
-static char *colors[][3] = {
-        /*                 fg             bg            border         */
-        [SchemeNorm]   = { normfgcolor,   normbgcolor,  normbordercolor },
-        [SchemeSel]    = { selfgcolor,    selbgcolor,   selbordercolor },
-        [SchemeTitle]  = { seltitlecolor, selbgcolor,   selbordercolor },
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int fborderpx = 5;        /* border pixel of floating windows */
+static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
+static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static int floatposgrid_x           = 5;        /* float grid columns */
+static int floatposgrid_y           = 5;        /* float grid rows */
+static const char *fonts[]          = { "monospace:size=10", "Noto Color Emoji:size=10", "Symbols Nerd Font:size=10", };
+static const char dmenufont[]       = "monospace:size=10";
+static char normbgcolor[]           = "#222222";
+static char normbordercolor[]       = "#444444";
+static char normfgcolor[]           = "#bbbbbb";
+static char selfgcolor[]            = "#eeeeee";
+static char selbordercolor[]        = "#005577";
+static char selbgcolor[]            = "#005577";
+static char termcol0[]              = "#000000"; /* black   */
+static char termcol1[]              = "#ff0000"; /* red     */
+static char termcol2[]              = "#33ff00"; /* green   */
+static char termcol3[]              = "#ff0099"; /* yellow  */
+static char termcol4[]              = "#0066ff"; /* blue    */
+static char termcol5[]              = "#cc00ff"; /* magenta */
+static char termcol6[]              = "#00ffff"; /* cyan    */
+static char termcol7[]              = "#d0d0d0"; /* white   */
+static char termcol8[]              = "#808080"; /* black   */
+static char termcol9[]              = "#ff0000"; /* red     */
+static char termcol10[]             = "#33ff00"; /* green   */
+static char termcol11[]             = "#ff0099"; /* yellow  */
+static char termcol12[]             = "#0066ff"; /* blue    */
+static char termcol13[]             = "#cc00ff"; /* magenta */
+static char termcol14[]             = "#00ffff"; /* cyan    */
+static char termcol15[]             = "#ffffff"; /* white   */
+static char *termcolor[] = {
+  termcol0,
+  termcol1,
+  termcol2,
+  termcol3,
+  termcol4,
+  termcol5,
+  termcol6,
+  termcol7,
+  termcol8,
+  termcol9,
+  termcol10,
+  termcol11,
+  termcol12,
+  termcol13,
+  termcol14,
+  termcol15,
 };
-
-/* sticky indicator */
-static const XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
-static const XPoint stickyiconbb    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
+static char *colors[][3] = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+};
 
 
 /* scratchpads */
@@ -61,11 +83,14 @@ static Sp scratchpads[] = {
 
 
 
-/* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tagsalt[] = { "󱍢", "", "󰈹", "", "", "", "", "", "" };
-static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
+/* sticky indicator icon */
+static const XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
+static const XPoint stickyiconbb    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
 
+/* tagging */
+static const char *tags[] = { "󱍢", "", "󰈹", "", "", "", "", "", "" };
+static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
 
 /* rules */
 static const Rule rules[] = {
@@ -86,15 +111,17 @@ static const Rule rules[] = {
 };
 
 
+
 /* layout(s) */
-static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static int nmaster     = 1;    /* number of clients in master area */
-static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
-/* extra include */
+/* external include */
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+#define STATUSBAR "dwmblocks"
 #include "shiftview.c"
 
 static const Layout layouts[] = {
@@ -116,33 +143,6 @@ static const Layout layouts[] = {
 	{ NULL,       NULL },
 };
 
-/*
-* Xresources preferences to load at startup
-*/
-ResourcePref resources[] = {
-                { "color0",             STRING,  &normbordercolor },
-                { "color1",             STRING,  &selbordercolor },
-                { "color0",             STRING,  &normbgcolor },
-                { "color15",            STRING,  &normfgcolor },
-                { "color0",             STRING,  &selfgcolor },
-                { "color4",             STRING,  &selbgcolor },
-		{ "color15",		STRING,  &seltitlecolor },
-                { "borderpx",           INTEGER, &borderpx },
-                { "snap",               INTEGER, &snap },
-                { "showbar",            INTEGER, &showbar },
-                { "topbar",             INTEGER, &topbar },
-                { "nmaster",            INTEGER, &nmaster },
-                { "resizehints",        INTEGER, &resizehints },
-                { "mfact",              FLOAT,   &mfact },
-                { "gappih",             INTEGER, &gappih },
-                { "gappiv",             INTEGER, &gappiv },
-                { "gappoh",             INTEGER, &gappoh },
-                { "gappov",             INTEGER, &gappov },
-                { "swallowfloating",    INTEGER, &swallowfloating },
-                { "smartgaps",          INTEGER, &smartgaps },
-};
-
-
 /* key definitions */
 #define MODKEY Mod4Mask
 #include <X11/XF86keysym.h> /* including function keys */
@@ -151,7 +151,6 @@ ResourcePref resources[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
 
 
 /* manual stacking */
@@ -167,6 +166,7 @@ ResourcePref resources[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -185,7 +185,10 @@ static const char *light_up[]   = { "backlight", "up",   NULL };
 static const char *light_down[] = { "backlight", "down", NULL };
 
 /* dmenuemojicmd */
-static const char *emojicmd[]   = { "dmenuunicode",   NULL }; 
+static const char *emojicmd[]   = { "dmenuunicode",   NULL };
+
+
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -200,11 +203,12 @@ static const Key keys[] = {
         TAGKEYS(                        XK_6,                      5)
         TAGKEYS(                        XK_7,                      6)
         TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
 /*--------------------------end of stacker & tagkeys--------------------------*/
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
         { MODKEY|Mod1Mask,              XK_x,      spawn,          {.v = pmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_e,      spawn,          {.v = emojicmd } },
+	{ MODKEY,			XK_e,      spawn,          {.v = emojicmd } },	
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
@@ -214,7 +218,6 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-/*--------------------------------controlling gaps--------------------------------*/
 	{ MODKEY|Mod1Mask,              XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_i,      incrigaps,      {.i = +1 } },
@@ -231,18 +234,17 @@ static const Key keys[] = {
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_0,      togglegaps,     {0} },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
-/*-------------------------end of controlling gaps bindings----------------------*/
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ControlMask,		XK_comma,  cyclelayout,    {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,			XK_Up,	   shiftview,	   { .i = -1 } },
 	{ MODKEY|ShiftMask,		XK_Up,	   shifttag,	   { .i = -1 } },
 	{ MODKEY,			XK_Down,   shiftview,	   { .i = +1 } },
 	{ MODKEY|ShiftMask,		XK_Down,   shifttag,	   { .i = +1 } },
+	{ MODKEY|ControlMask,		XK_comma,  cyclelayout,    { .i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,    { .i = +1 } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_n,      togglealttag,   {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -260,14 +262,14 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	/* --------------------------media controls------------------ */
 	{ 0,         XF86XK_AudioMute,	           spawn,	   {.v = vol_mute } },
 	{ 0,         XF86XK_AudioRaiseVolume,	   spawn,	   {.v = vol_up } },
 	{ 0,         XF86XK_AudioLowerVolume,	   spawn,	   {.v = vol_down } },
 	{ 0,         XF86XK_AudioMicMute,	   spawn,	   {.v = mic_mute } },
         { 0,         XF86XK_MonBrightnessUp,       spawn,          {.v = light_up } },
-        { 0,         XF86XK_MonBrightnessDown,     spawn,          {.v = light_down } },
+        { 0,         XF86XK_MonBrightnessDown,     spawn,          {.v = light_down } }, 
         /*----------------------------managing float pos---------------------------------*/
  	/* Client position is limited to monitor window area */
  	{ Mod3Mask,                     XK_u,      floatpos,       {.v = "-26x -26y" } }, // ↖
@@ -316,7 +318,12 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
+        { ClkStatusText,        0,              Button4,        sigstatusbar,   {.i = 4} },
+        { ClkStatusText,        0,              Button5,        sigstatusbar,   {.i = 5} },
+        { ClkStatusText,        ShiftMask,      Button1,        sigstatusbar,   {.i = 6} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -325,5 +332,5 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
         { ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
-        { ClkTagBar,            0,              Button5,        shiftview,      {.i = +1} },
+        { ClkTagBar,            0,              Button5,        shiftview,      {.i = 1} },
 };

@@ -6,8 +6,6 @@
 # Add all directories in `~/.local/bin` to $PATH
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 
-# cd into any directoy within the following paths without typing the whole path
-export CDPATH=.:$HOME:$HOME/.config/:$HOME/.local/:$HOME/.local/share/:$HOME/.local/share/programs
 unsetopt PROMPT_SP 2>/dev/null
 
 # Default programs:
@@ -56,7 +54,7 @@ export LESS="R"
 export LESS_TERMCAP_mb="$(printf '%b' 'm')"
 export LESS_TERMCAP_md="$(printf '%b' 'm')"
 export LESS_TERMCAP_me="$(printf '%b' '')"
-export LESS_TERMCAP_so="$(printf '%b' '\33[5;30;43m')"
+export LESS_TERMCAP_so="$(printf '%b' ';44;33m')"
 export LESS_TERMCAP_se="$(printf '%b' '')"
 export LESS_TERMCAP_us="$(printf '%b' 'm')"
 export LESS_TERMCAP_ue="$(printf '%b' '')"
@@ -66,7 +64,10 @@ export MOZ_USE_XINPUT2=1                  # Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D" # May have to install wmname
 export _JAVA_AWT_WM_NONREPARENTING=1      # Fix for Java applications in dwm
 
-
+[ ! -f "$XDG_CONFIG_HOME/shell/shortcutrc" ] && setsid -f shortcuts >/dev/null 2>&1
 
 # Start graphical server on user's current tty if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+
+# Switch escape and caps if tty and no passwd required:
+sudo -n loadkeys "$XDG_DATA_HOME/larbs/ttymaps.kmap" 2>/dev/null

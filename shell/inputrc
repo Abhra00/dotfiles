@@ -1,21 +1,19 @@
-set colored-stats On
-set colored-completion-prefix On
+$include /etc/inputrc
+set editing-mode vi
+$if mode=vi
 
-set show-all-if-ambiguous On
-set completion-ignore-case On
-set completion-display-width 0
-set completion-query-items 1000
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
 
-set echo-control-characters Off
+set keymap vi-command
+# these are for vi-command mode
+Control-l: clear-screen
+Control-a: beginning-of-line
 
-"\e[A": history-search-backward
-"\e[B": history-search-foreward
+set keymap vi-insert
+# these are for vi-insert mode
+Control-l: clear-screen
+Control-a: beginning-of-line
 
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
-
-"\C-f":"cd /home/jake/.config"
-"\C-b":"cd ..\n"
-"\C-h":"cd\n"
-"\C-w":"webserver\n"
-"\es":"\C-asudo \C-e"
+$endif
