@@ -1,21 +1,23 @@
 #!/bin/sh
 
 # wallpaper directory #
-wall_dir=~/wallpapers/gruvbox-wallpapers/
+#wall_dir=~/wallpapers/gruvbox-wallpapers/
 
 # finding random wallpaper
-if [ -z "$1" ]; then
-  wall="$(find "$wall_dir" -type f -name "*.jpg" -o -name "*.png" | shuf -n1)"
-else
-  wall="$1"
-fi
+#if [ -z "$1" ]; then
+#  wall="$(find "$wall_dir" -type f -name "*.jpg" -o -name "*.png" | shuf -n1)"
+#else
+# wall="$1"
+#fi
+
+wall=~/wallpapers/gruvbox-wallpapers/gruvbox-thiemeyer_road_to_samarkand.jpg
 
 # setting wallpaper
 xwallpaper --zoom $wall
 
 
 # For pywal support uncomment the lines below
-# wal -c
-# wal -i $wall
-# xdotool key Super+F5
+#wal -c
+#wal -i $wall
+#xdotool key Super+F5
 

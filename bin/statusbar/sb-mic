@@ -3,6 +3,7 @@
 
 if pactl get-source-mute @DEFAULT_SOURCE@ | grep -q "^Mute: no"; then
     printf "%s\n" "🎙"
+else
+    printf "%s%s\n" "🎙" "muted"
 fi
 
-printf "%s%s\n" "🎙" "muted"
