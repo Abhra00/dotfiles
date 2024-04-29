@@ -6,6 +6,7 @@ autoload -U compinit
 autoload -U vcs_info
 precmd () { vcs_info }
 setopt autocd
+stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 setopt PROMPT_SUBST
 
@@ -17,10 +18,13 @@ HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 
 ###--------------Tab Completion---------------###
 zstyle ':completion:*' menu select
+
 # Auto complete with case insensitivity
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
-zstyle ':vcs_info:*' formats ' %B%s-[%F{magenta}%f %F{yellow}%b%f]-'
+
+
+# Fomattting vcs info message
+zstyle ':vcs_info:*' formats '%F{magenta}%f %F{yellow}%b%f'
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
@@ -30,16 +34,21 @@ _comp_options+=(globdots)
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 
 ###----------------Prompt--------------###
-function dir_icon {
-  if [[ "$PWD" == "$HOME" ]]; then
-    echo "%B%F{cyan} %f%b"
-  else
-    echo "%B%F{cyan} %f%b"
-  fi
+
+# git dirty function 
+function parse_git_dirty {
+  STATUS="$(git status 2> /dev/null)"
+  if [[ $? -ne 0 ]]; then printf ""; return; else printf " ["; fi
+  if echo "${STATUS}" | grep -c "renamed:"         &> /dev/null; then printf " >"; else printf ""; fi
+  if echo "${STATUS}" | grep -c "branch is ahead:" &> /dev/null; then printf " !"; else printf ""; fi
+  if echo "${STATUS}" | grep -c "new file::"       &> /dev/null; then printf " +"; else printf ""; fi
+  if echo "${STATUS}" | grep -c "Untracked files:" &> /dev/null; then printf " ?"; else printf ""; fi
+  if echo "${STATUS}" | grep -c "modified:"        &> /dev/null; then printf " *"; else printf ""; fi
+  if echo "${STATUS}" | grep -c "deleted:"         &> /dev/null; then printf " -"; else printf ""; fi
+  printf " ]"
 }
-
-PS1='%B%F{blue} %f%b %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
-
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+RPS1='%b${vcs_info_msg_0_}%B%{$fg[blue]%}$(parse_git_dirty)%{$reset_color%}%b'
 
 ###--------------------Pretty Sudo Prompt---------------------###
 export SUDO_PROMPT="$fg[red][sudo] $fg[yellow]password for $USER  :$fg[white]"
@@ -82,7 +91,7 @@ preexec() { echo -ne '\e[5 q' ;} # USE beam shape cursor for each new prompt
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history 
 bindkey -v '^?' backward-delete-char
 
 
@@ -95,3 +104,5 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 
 
 
+
+export PATH=$PATH:/home/bugs/.spicetify
