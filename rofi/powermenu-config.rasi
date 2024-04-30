@@ -4,7 +4,7 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "colors/oxide.rasi"
+@import                          "shared/colors.rasi"
 
 /*
 USE_BUTTONS=YES
@@ -155,6 +155,6 @@ element-text {
     horizontal-align:            0.5;
 }
 element selected.normal {
-    background-color:            var(selected);
-    text-color:                  var(background);
+    background-color:            @selected;
+    text-color:                  @foreground;
 }

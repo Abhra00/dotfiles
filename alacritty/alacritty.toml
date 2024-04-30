@@ -1,4 +1,4 @@
-import = ["/home/bugs/.config/alacritty/font.toml", "/home/bugs/.config/alacritty/themes/colors-oxide.toml"]
+import = ["/home/bugs/.config/alacritty/font.toml", "/home/bugs/.config/alacritty/themes/colors-gruvbox.toml"]
 
 [cursor.style]
 blinking = "On"

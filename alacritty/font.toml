@@ -1,20 +1,20 @@
 [font]
-size   = 9.0
+size   = 8.0
 
 [font.normal]
-family = "FantasqueSansM  Nerd Font"
+family = "Hurmit  Nerd Font"
 style = "Regular"
 
 [font.bold]
-family = "FantasqueSansM Nerd Font"
+family = "Hurmit Nerd Font"
 style  = "Bold"
 
 [font.bold_italic]
-family = "FantasqueSansM Nerd Font"
+family = "Hurmit Nerd Font"
 style  = "Bold Italic"
 
 [font.italic]
-family = "FantasqueSansM Nerd Font"
+family = "Hurmit Nerd Font"
 style  = "Italic"
 
 

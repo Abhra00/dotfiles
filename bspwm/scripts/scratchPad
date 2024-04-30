@@ -1,0 +1,27 @@
+#!/bin/sh
+
+
+#
+# ┏┓┏┓┳┓┏┓┏┳┓┏┓┓┏┏┓┏┓┳┓
+# ┗┓┃ ┣┫┣┫ ┃ ┃ ┣┫┃┃┣┫┃┃
+# ┗┛┗┛┛┗┛┗ ┻ ┗┛┛┗┣┛┛┗┻┛
+#                     
+
+
+
+case "$1" in
+
+    Scratchpad) 		
+        entry="alacritty --class Scpad -T Scratchpad" 		
+        ;;
+    Music)
+        entry="alacritty --class Music -t Music -e ncmpcpp"
+        ;;
+    Spfm)
+        entry="alacritty --class Spfm -t Spfm -e ranger"
+        ;;
+esac
+
+xdotool search --onlyvisible --name "$1" windowunmap \
+    || xdotool search --name "$1" windowmap \
+    || $entry &

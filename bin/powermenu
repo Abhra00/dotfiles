@@ -6,7 +6,7 @@ theme='powermenu-config'
 
 # CMDs
 uptime="`uptime -p | sed -e 's/up //g'`"
-host="`hostname`"
+host="`cat /etc/hostname`"
 
 # Options
 shutdown=''
@@ -61,13 +61,13 @@ run_cmd() {
 			amixer set Master mute
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
-			if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
+			if [[ "$XDG_CURRENT_DESKTOP" == 'openbox' ]]; then
 				openbox --exit
-			elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
+			elif [[ "$XDG_CURRENT_DESKTOP" == 'bspwm' ]]; then
 				bspc quit
-			elif [[ "$DESKTOP_SESSION" == 'i3' ]]; then
+			elif [[ "$XDG_CURRENT_DESKTOP" == 'i3' ]]; then
 				i3-msg exit
-			elif [[ "$DESKTOP_SESSION" == 'qtile' ]]; then
+			elif [[ "$XDG_CURRENT_DESKTOP" == 'qtile' ]]; then
 				qtile cmd-obj -o cmd -f shutdown
 			fi
 		fi
