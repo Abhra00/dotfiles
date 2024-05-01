@@ -1,11 +1,12 @@
 import = ["/home/bugs/.config/alacritty/font.toml", "/home/bugs/.config/alacritty/themes/colors-gruvbox.toml"]
 
-[cursor.style]
+[cursor.vi_mode_style]
+shape =  "Underline"
 blinking = "On"
-shape = "Underline"
 
-[env]
-TERM = "xterm-256color"
+[font.offset]
+x = 0
+y = 1
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -33,9 +34,29 @@ key = "Equals"
 mods = "Control"
 
 [[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control"
+
+[[keyboard.bindings]]
 action = "DecreaseFontSize"
 key = "Minus"
 mods = "Control"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "Paste"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "Copy"
+mods = "None"
 
 [[keyboard.bindings]]
 action = "ClearLogNotice"
@@ -51,13 +72,13 @@ mods = "Control"
 action = "ScrollPageUp"
 key = "PageUp"
 mode = "~Alt"
-mods = "Shift"
+mods = "None"
 
 [[keyboard.bindings]]
 action = "ScrollPageDown"
 key = "PageDown"
 mode = "~Alt"
-mods = "Shift"
+mods = "None"
 
 [[keyboard.bindings]]
 action = "ScrollToTop"
@@ -75,19 +96,14 @@ mods = "Shift"
 history = 5000
 
 [window]
-decorations = "none"
-opacity = 0.8
+dynamic_padding = false
+opacity = 0.9
 title = "Alacritty"
 
 [window.class]
 general = "Alacritty"
 instance = "Alacritty"
 
-
 [window.padding]
 x = 6
 y = 6
-
-[window.position]
-x = 0
-y = 0

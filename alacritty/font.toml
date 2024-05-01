@@ -18,6 +18,3 @@ family = "Hermit"
 style  = "Italic"
 
 
-[font.offset]
-x = 1
-y = 1
