@@ -2,19 +2,19 @@
 size   = 8.0
 
 [font.normal]
-family = "Hurmit  Nerd Font"
+family = "Hermit"
 style = "Regular"
 
 [font.bold]
-family = "Hurmit Nerd Font"
+family = "Hermit"
 style  = "Bold"
 
 [font.bold_italic]
-family = "Hurmit Nerd Font"
+family = "Hermit"
 style  = "Bold Italic"
 
 [font.italic]
-family = "Hurmit Nerd Font"
+family = "Hermit"
 style  = "Italic"
 
 

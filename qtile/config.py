@@ -31,7 +31,7 @@ from bar_gruvbox import bar
 
 
 mod      = "mod4"
-terminal = "kitty"
+terminal = "alacritty"
 launcher = "rofi -show drun -theme ~/.config/rofi/config.rasi"
 browser  = "firefox"
 logout   = "powermenu"
@@ -135,9 +135,9 @@ groups = [Group(" 1 ", layout='monadtall'),
 
 ###--------Scratchpads---------###
 ###----------------------------###
-          ScratchPad("music",[DropDown("tunes", "kitty -e ncmpcpp", x=0.05, y=0.02, width=0.90, height=0.6, on_focus_lost_hide=False)]),
-	  ScratchPad("fm",[DropDown("filemanager", "kitty -e ranger", x=0.05, y=0.02, width=0.90, height=0.6, on_focus_lost_hide=False)]),
-          ScratchPad("scratchpad",[DropDown("term", "kitty", x=0.12, y=0.02, width=0.75, height=0.6, on_focus_lost_hide=False)]),
+          ScratchPad("music",[DropDown("tunes", "alacritty -e ncmpcpp", x=0.05, y=0.02, width=0.90, height=0.6, on_focus_lost_hide=False)]),
+	  ScratchPad("fm",[DropDown("filemanager", "alacritty -e ranger", x=0.05, y=0.02, width=0.90, height=0.6, on_focus_lost_hide=False)]),
+          ScratchPad("scratchpad",[DropDown("term", "alacritty", x=0.12, y=0.02, width=0.75, height=0.6, on_focus_lost_hide=False)]),
 
 ]
 
