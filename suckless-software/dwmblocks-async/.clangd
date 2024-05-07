@@ -1,5 +1,0 @@
-Diagnostics:
-  UnusedIncludes: Strict
-  MissingIncludes: Strict
-  Includes:
-    IgnoreHeader: bits/getopt_core.h
