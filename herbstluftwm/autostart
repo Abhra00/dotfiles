@@ -1,0 +1,210 @@
+#!/bin/sh
+
+
+#
+# ┏┳┓┓┏┏┓  ┳┓┏┓┏┓┳┓  ┏┓┏┓┳┓┏┓┳┏┓
+#  ┃ ┣┫┣   ┃┃┃┃┃┃┣┫  ┃ ┃┃┃┃┣ ┃┃┓
+#  ┻ ┛┗┗┛  ┛┗┗┛┗┛┻┛  ┗┛┗┛┛┗┻ ┻┗┛
+#                              
+
+
+
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+
+
+###------------------autostart-----------------###
+###--------------------------------------------###
+. "$HOME"/.config/herbstluftwm/scripts/autostart
+
+
+###--------remove all existing keybindings--------###
+###-----------------------------------------------###
+hc keyunbind --all
+
+###-----------key-definitions--------###
+###----------------------------------###
+#Mod=Mod1    # Use alt as the main modifier
+Mod=Mod4   # Use the super key as the main modifier
+
+
+###-----------herbst keybinds----------###
+###------------------------------------###
+hc keybind $Mod-Shift-q quit
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-c close
+hc keybind $Mod-Shift-Return spawn kitty
+
+
+###--------------mutimedia keys----------###
+###--------------------------------------###
+hc keybind XF86MonBrightnessUp spawn backlight-bspwm up
+hc keybind XF86MonBrightnessDown spawn backlight-bspwm down
+hc keybind XF86AudioRaiseVolume spawn volume-bspwm up
+hc keybind XF86AudioLowerVolume spawn volume-bspwm down
+hc keybind XF86AudioMute spawn volume-bspwm mute
+
+
+###---------------run launchers-----------###
+###---------------------------------------###
+hc keybind $Mod-p spawn rofi -show drun -theme ~/.config/rofi/config
+hc keybind $Mod-w spawn rofi-wifi-menu
+hc keybind $Mod-e spawn rofi -show emoji -theme ~/.config/rofi/config
+
+
+###-------------scratchpads--------------###
+###--------------------------------------###
+hc keybind $Mod-Home spawn "$HOME"/.config/herbstluftwm/scripts/scratchpad ">_<" "956x1046+957+27" #Side scratchpad
+hc keybind $Mod-End spawn "$HOME"/.config/herbstluftwm/scripts/scratchpad ">_<" "1358x760+281+170" #Wide scratchpad
+
+
+###--------focusing clients-----------###
+###-----------------------------------###
+hc keybind $Mod-Left  focus left
+hc keybind $Mod-Down  focus down
+hc keybind $Mod-Up    focus up
+hc keybind $Mod-Right focus right
+hc keybind $Mod-h     focus left
+hc keybind $Mod-j     focus down
+hc keybind $Mod-k     focus up
+hc keybind $Mod-l     focus right
+
+###--------moving clients-------------###
+###-----------------------------------###
+hc keybind $Mod-Shift-Left  shift left
+hc keybind $Mod-Shift-Down  shift down
+hc keybind $Mod-Shift-Up    shift up
+hc keybind $Mod-Shift-Right shift right
+hc keybind $Mod-Shift-h     shift left
+hc keybind $Mod-Shift-j     shift down
+hc keybind $Mod-Shift-k     shift up
+hc keybind $Mod-Shift-l     shift right
+
+###---------splitting frames---------###
+###----------------------------------###
+hc keybind $Mod-u       split   bottom  0.6
+hc keybind $Mod-o       split   right   0.6
+# let the current frame explode into subframes
+hc keybind $Mod-Control-space split explode
+
+###----resizing frames and floating clients----###
+###--------------------------------------------###
+resizestep=0.02
+hc keybind $Mod-Control-h       resize left +$resizestep
+hc keybind $Mod-Control-j       resize down +$resizestep
+hc keybind $Mod-Control-k       resize up +$resizestep
+hc keybind $Mod-Control-l       resize right +$resizestep
+hc keybind $Mod-Control-Left    resize left +$resizestep
+hc keybind $Mod-Control-Down    resize down +$resizestep
+hc keybind $Mod-Control-Up      resize up +$resizestep
+hc keybind $Mod-Control-Right   resize right +$resizestep
+
+###-------tags----------###
+###---------------------###
+tag_names=( {1..9} )
+tag_keys=( {1..9} 0 )
+
+hc rename default "${tag_names[0]}" || true
+for i in "${!tag_names[@]}" ; do
+    hc add "${tag_names[$i]}"
+    hc set_layout horizontal 
+    hc set default_frame_layout 1
+    key="${tag_keys[$i]}"
+    if [ -n "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+###--------cycle through tags----------###
+###------------------------------------###
+hc keybind $Mod-period use_index +1 --skip-visible
+hc keybind $Mod-comma  use_index -1 --skip-visible
+
+###-----------layouting---------###
+###-----------------------------###
+hc keybind $Mod-r remove
+hc keybind $Mod-s floating toggle
+hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
+hc keybind $Mod-Shift-d set_attr clients.focus.decorated toggle
+hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
+hc keybind $Mod-Control-m jumpto last-minimized
+hc keybind $Mod-Shift-p pseudotile toggle
+
+###------cycling layouts-------###
+###----------------------------###
+hc keybind $Mod-space                                                           \
+            or , and . compare tags.focus.curframe_wcount = 2                   \
+                     . cycle_layout +1 vertical horizontal max vertical grid    \
+               , cycle_layout +1
+
+###-------mouse-----------###
+###-----------------------###
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
+
+###--------focus---------###
+###----------------------###
+hc keybind $Mod-BackSpace   cycle_monitor
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+hc keybind $Mod-c cycle
+hc keybind $Mod-i jumpto urgent
+
+
+
+###-------theme-------###
+###-------------------###
+. "$HOME"/.config/herbstluftwm/themes/pywal-theme
+
+###---------rules-------###
+###---------------------###
+hc unrule -F
+hc rule class=firefox tag=3 # move all firefox to tag 3
+hc rule class=Spotify tag=2 # move all spotify to tag 2
+hc rule focus=on # normally focus new clients
+hc rule floatplacement=smart
+
+###-------app floating rules--------###
+###---------------------------------###
+hc rule class~'Pavucontrol' floating=on floatplacement=center 
+hc rule class~'mpv' floating=on floatplacement=center
+hc rule class~'Thunar' floating=on floatplacement=center
+
+
+#hc rule focus=off # normally do not focus new clients
+###-------give focus to most common terminals---------###
+###---------------------------------------------------###
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+hc rule fixedsize floating=on
+
+
+hc rule index=e
+
+
+hc set tree_style '╾│ ├└╼─┐'
+
+# unlock, just to be sure
+hc unlock
+
+# do multi monitor setup here, e.g.:
+# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+# or simply:
+# hc detect_monitors
+
+# find the panel
+#panel=~/.config/polybar/herbstluftwm/launch.sh
+panel=~/.config/polybar/kabinspace/launch.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" "$monitor" &
+done
