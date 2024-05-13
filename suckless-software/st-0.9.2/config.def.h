@@ -6,12 +6,9 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 
-static char *font = "mono:pixelsize=10:antialias=true:autohint=true";
+static char *font = "JetBrains Mono Nerd Font:pixelsize=12:antialias=true:autohint=true";
 /* Spare fonts */
 static char *font2[] = {
-/*     "Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
-/*     "Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true", */
-       "Fantasque Sans Mono:pixelsize=10:antialias=true:autohint=true",
        "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true",
 };
 
@@ -83,7 +80,7 @@ static unsigned int cursorthickness = 2;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 1;
+const int boxdraw = 0;
 const int boxdraw_bold = 0;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
@@ -121,7 +118,7 @@ float alpha_def;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#1d2021", /* hard contrast: #1d2021 / soft contrast: #32302f */ /* default: #282828 */
+	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
 	"#cc241d",
 	"#98971a",
 	"#d79921",

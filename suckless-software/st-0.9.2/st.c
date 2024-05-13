@@ -118,7 +118,7 @@ typedef struct {
 typedef struct {
 	int row;      /* nb row */
 	int col;      /* nb col */
-	int maxcol;
+	int maxCol;
 	Line *line;   /* screen */
 	Line *alt;    /* alternate screen */
 	Line hist[HISTSIZE]; /* history buffer */
@@ -1315,8 +1315,8 @@ tclearregion(int x1, int y1, int x2, int y2)
 	if (y1 > y2)
 		temp = y1, y1 = y2, y2 = temp;
 
-        LIMIT(x1, 0, term.maxcol-1);
-        LIMIT(x2, 0, term.maxcol-1);
+	LIMIT(x1, 0, term.maxCol-1);
+	LIMIT(x2, 0, term.maxCol-1);
 	LIMIT(y1, 0, term.row-1);
 	LIMIT(y2, 0, term.row-1);
 
@@ -2684,99 +2684,99 @@ twrite(const char *buf, int buflen, int show_ctrl)
 void
 tresize(int col, int row)
 {
-        int i, j;
-        int tmp;
-        int minrow, mincol;
-        int *bp;
-        TCursor c;
+	int i, j, pmc;
+	int colSet = col;
 
-        tmp = col;
-        if (!term.maxcol)
-                term.maxcol = term.col;
-        col = MAX(col, term.maxcol);
-        minrow = MIN(row, term.row);
-        mincol = MIN(col, term.maxcol);
+	if(!term.maxCol) term.maxCol = 255;
+	col = MAX(col, term.maxCol);
 
-        if (col < 1 || row < 1) {
-                fprintf(stderr,
-                        "tresize: error resizing to %dx%d\n", col, row);
-                return;
-        }
+	int minrow = MIN(row, term.row);
+	int mincol = MIN(col, term.maxCol);
+	term.maxCol = MAX(col, pmc = term.maxCol);
 
-        /*
-         * slide screen to keep cursor where we expect it -
-         * tscrollup would work here, but we can optimize to
-         * memmove because we're freeing the earlier lines
-         */
-        for (i = 0; i <= term.c.y - row; i++) {
-                free(term.line[i]);
-                free(term.alt[i]);
-        }
-        /* ensure that both src and dst are not NULL */
-        if (i > 0) {
-                memmove(term.line, term.line + i, row * sizeof(Line));
-                memmove(term.alt, term.alt + i, row * sizeof(Line));
-        }
-        for (i += row; i < term.row; i++) {
-                free(term.line[i]);
-                free(term.alt[i]);
-        }
+	int *bp;
+	TCursor c;
 
-        /* resize to new height */
-        term.line = xrealloc(term.line, row * sizeof(Line));
-        term.alt  = xrealloc(term.alt,  row * sizeof(Line));
-        term.dirty = xrealloc(term.dirty, row * sizeof(*term.dirty));
-        term.tabs = xrealloc(term.tabs, col * sizeof(*term.tabs));
+	if (col < 1 || row < 1) {
+		fprintf(stderr,
+		        "tresize: error resizing to %dx%d\n", col, row);
+		return;
+	}
 
-        for (i = 0; i < HISTSIZE; i++) {
-                term.hist[i] = xrealloc(term.hist[i], col * sizeof(Glyph));
-                for (j = mincol; j < col; j++) {
-                        term.hist[i][j] = term.c.attr;
-                        term.hist[i][j].u = ' ';
-                }
-        }
+	/*
+	 * slide screen to keep cursor where we expect it -
+	 * tscrollup would work here, but we can optimize to
+	 * memmove because we're freeing the earlier lines
+	 */
+	for (i = 0; i <= term.c.y - row; i++) {
+		free(term.line[i]);
+		free(term.alt[i]);
+	}
+	/* ensure that both src and dst are not NULL */
+	if (i > 0) {
+		memmove(term.line, term.line + i, row * sizeof(Line));
+		memmove(term.alt, term.alt + i, row * sizeof(Line));
+	}
+	for (i += row; i < term.row; i++) {
+		free(term.line[i]);
+		free(term.alt[i]);
+	}
 
-        /* resize each row to new width, zero-pad if needed */
-        for (i = 0; i < minrow; i++) {
-                term.line[i] = xrealloc(term.line[i], col * sizeof(Glyph));
-                term.alt[i]  = xrealloc(term.alt[i],  col * sizeof(Glyph));
-        }
+	/* resize to new height */
+	term.line = xrealloc(term.line, row * sizeof(Line));
+	term.alt  = xrealloc(term.alt,  row * sizeof(Line));
+	term.dirty = xrealloc(term.dirty, row * sizeof(*term.dirty));
+	term.tabs = xrealloc(term.tabs, col * sizeof(*term.tabs));
 
-        /* allocate any new rows */
-        for (/* i = minrow */; i < row; i++) {
-                term.line[i] = xmalloc(col * sizeof(Glyph));
-                term.alt[i] = xmalloc(col * sizeof(Glyph));
-        }
-        if (col > term.maxcol) {
-                bp = term.tabs + term.maxcol;
+	for (i = 0; i < HISTSIZE; i++) {
+		term.hist[i] = xrealloc(term.hist[i], term.maxCol * sizeof(Glyph));
+		for (j = mincol; j < col; j++) {
+			term.hist[i][j] = term.c.attr;
+			term.hist[i][j].u = ' ';
+		}
+	}
 
-                memset(bp, 0, sizeof(*term.tabs) * (col - term.maxcol));
-                while (--bp > term.tabs && !*bp)
-                        /* nothing */ ;
-                for (bp += tabspaces; bp < term.tabs + col; bp += tabspaces)
-                        *bp = 1;
-        }
-        /* update terminal size */
-        term.col = tmp;
-        term.maxcol = col;
-        term.row = row;
-        /* reset scrolling region */
-        tsetscroll(0, row-1);
-        /* make use of the LIMIT in tmoveto */
-        tmoveto(term.c.x, term.c.y);
-        /* Clearing both screens (it makes dirty all lines) */
-        c = term.c;
-        for (i = 0; i < 2; i++) {
-                if (mincol < col && 0 < minrow) {
-                        tclearregion(mincol, 0, col - 1, minrow - 1);
-                }
-                if (0 < col && minrow < row) {
-                        tclearregion(0, minrow, col - 1, row - 1);
-                }
-                tswapscreen();
-                tcursor(CURSOR_LOAD);
-        }
-        term.c = c;
+	/* resize each row to new width, zero-pad if needed */
+	for (i = 0; i < minrow; i++) {
+		term.line[i] = xrealloc(term.line[i], col * sizeof(Glyph));
+		term.alt[i]  = xrealloc(term.alt[i],  col * sizeof(Glyph));
+	}
+
+	/* allocate any new rows */
+	for (/* i = minrow */; i < row; i++) {
+		term.line[i] = xmalloc(term.maxCol * sizeof(Glyph));
+		term.alt[i] = xmalloc(term.maxCol * sizeof(Glyph));
+	}
+	if (col > term.maxCol) {
+		bp = term.tabs + term.maxCol;
+
+		memset(bp, 0, sizeof(*term.tabs) * (col - term.maxCol));
+		/*while (--bp > term.tabs && !*bp)*/
+			/* nothing */ ;
+		for (bp += tabspaces; bp < term.tabs + col; bp += tabspaces)
+			*bp = 1;
+	}
+	/* update terminal size */
+	term.col = colSet;
+	term.maxCol = col;
+	term.row = row;
+	/* reset scrolling region */
+	tsetscroll(0, row-1);
+	/* make use of the LIMIT in tmoveto */
+	tmoveto(term.c.x, term.c.y);
+	/* Clearing both screens (it makes dirty all lines) */
+	c = term.c;
+	for (i = 0; i < 2; i++) {
+		if (mincol < col && 0 < minrow) {
+			tclearregion(pmc, 0, col - 1, minrow - 1);
+		}
+		if (0 < col && minrow < row) {
+			tclearregion(0, minrow, col - 1, row - 1);
+		}
+		tswapscreen();
+		tcursor(CURSOR_LOAD);
+	}
+	term.c = c;
 }
 
 void
@@ -2818,8 +2818,8 @@ draw(void)
 	drawregion(0, 0, term.col, term.row);
         if (term.scr == 0)
                 xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
-                        term.ocx, term.ocy, term.line[term.ocy][term.ocx],
-			term.line[term.ocy], term.col);
+                                term.ocx, term.ocy, term.line[term.ocy][term.ocx],
+				term.line[term.ocy], term.col);
 	term.ocx = cx;
 	term.ocy = term.c.y;
 	xfinishdraw();

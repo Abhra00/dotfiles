@@ -38,6 +38,12 @@ enum glyph_attribute {
 	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
 };
 
+enum drawing_mode {
+    DRAW_NONE = 0,
+    DRAW_BG = 1 << 0,
+    DRAW_FG = 1 << 1,
+};
+
 enum selection_mode {
 	SEL_IDLE = 0,
 	SEL_EMPTY = 1,
@@ -82,9 +88,10 @@ typedef union {
 void die(const char *, ...);
 void redraw(void);
 void draw(void);
-void externalpipe(const Arg *);
+
 void kscrolldown(const Arg *);
 void kscrollup(const Arg *);
+void externalpipe(const Arg *);
 void printscreen(const Arg *);
 void printsel(const Arg *);
 void sendbreak(const Arg *);
@@ -136,5 +143,5 @@ extern unsigned int tabspaces;
 extern unsigned int defaultfg;
 extern unsigned int defaultbg;
 extern unsigned int defaultcs;
-extern const int boxdraw, boxdraw_bold, boxdraw_braille;
 extern float alpha, alpha_def;
+extern const int boxdraw, boxdraw_bold, boxdraw_braille;
