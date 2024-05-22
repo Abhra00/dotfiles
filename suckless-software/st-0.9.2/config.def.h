@@ -5,16 +5,9 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-
-static char *font = "JetBrains Mono Nerd Font:pixelsize=12:antialias=true:autohint=true";
-/* Spare fonts */
-static char *font2[] = {
-       "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true",
-};
-
-
+static char *font = "mono:pixelsize=12:antialias=true:autohint=true";
+static char *font2[] = { "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true" };
 static int borderpx = 2;
-
 /*
  * What program is execed by st depends of these precedence rules:
  * 1: program passed with -e
@@ -80,8 +73,8 @@ static unsigned int cursorthickness = 2;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 0;
-const int boxdraw_bold = 0;
+const int boxdraw = 1;
+const int boxdraw_bold = 1;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
 const int boxdraw_braille = 0;
@@ -113,7 +106,7 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.9;
+float alpha = 0.95;
 float alpha_def;
 
 /* Terminal colors (16 first used in escape sequence) */
@@ -143,6 +136,7 @@ static const char *colorname[] = {
 };
 
 
+
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
@@ -153,20 +147,13 @@ unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 
 /*
- * https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h4-Functions-using-CSI-_-ordered-by-the-final-character-lparen-s-rparen:CSI-Ps-SP-q.1D81
- * Default style of cursor
- * 0: blinking block
- * 1: blinking block (default)
- * 2: steady block ("█")
- * 3: blinking underline
- * 4: steady underline ("_")
- * 5: blinking bar
- * 6: steady bar ("|")
- * 7: blinking st cursor
- * 8: steady st cursor
+ * Default shape of cursor
+ * 2: Block ("█")
+ * 4: Underline ("_")
+ * 6: Bar ("|")
+ * 7: Snowman ("☃")
  */
-static unsigned int cursorstyle = 5;
-static Rune stcursor = 0x2603; /* snowman ("☃") */
+static unsigned int cursorshape = 2;
 
 /*
  * Default columns and rows numbers
@@ -200,7 +187,6 @@ static uint forcemousemod = ShiftMask;
  */
 ResourcePref resources[] = {
 		{ "font",         STRING,  &font },
-		{ "fontalt0",     STRING,  &font2[0] },
 		{ "color0",       STRING,  &colorname[0] },
 		{ "color1",       STRING,  &colorname[1] },
 		{ "color2",       STRING,  &colorname[2] },
@@ -249,34 +235,34 @@ static MouseShortcut mshortcuts[] = {
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
+
 /* external pipe script */
 static char *openurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -o", "externalpipe", NULL };
 static char *copyurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -c", "externalpipe", NULL };
 static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
 
-
 static Shortcut shortcuts[] = {
-	/* mask                 keysym          function        argument */
-	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
-	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
-	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
-	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
-	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
-	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
-	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
-	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_a,           chgalpha,       {.f = -1} }, /* Decrease opacity */
-	{ MODKEY,               XK_d,           chgalpha,       {.f = +1} }, /* Increase opacity */
-	{ MODKEY,               XK_s,           chgalpha,       {.f =  0} }, /* Reset opacity */
-        { ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-        { ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
-	{ MODKEY,               XK_y,           externalpipe,   {.v = copyurlcmd } },
-	{ MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
+	/* mask                 keysym           function        argument */
+	{ XK_ANY_MOD,           XK_Break,        sendbreak,      {.i =  0} },
+	{ ControlMask,          XK_Print,        toggleprinter,  {.i =  0} },
+	{ ShiftMask,            XK_Print,        printscreen,    {.i =  0} },
+	{ XK_ANY_MOD,           XK_Print,        printsel,       {.i =  0} },
+	{ TERMMOD,              XK_Prior,        zoom,           {.f = +1} },
+	{ TERMMOD,              XK_Next,         zoom,           {.f = -1} },
+	{ TERMMOD,              XK_Home,         zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_C,            clipcopy,       {.i =  0} },
+	{ TERMMOD,              XK_V,            clippaste,      {.i =  0} },
+	{ TERMMOD,              XK_Y,            selpaste,       {.i =  0} },
+	{ ShiftMask,            XK_Insert,       selpaste,       {.i =  0} },
+	{ TERMMOD,              XK_Num_Lock,     numlock,        {.i =  0} },
+	{ ShiftMask,            XK_j,     	 kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_k,   	 kscrolldown,    {.i = -1} },
+        { MODKEY,               XK_bracketleft,  chgalpha,       {.f = -1} }, /* Decrease opacity */
+        { MODKEY|ShiftMask,     XK_braceright,   chgalpha,       {.f = +1} }, /* Increase opacity */
+        { MODKEY,               XK_bracketright, chgalpha,       {.f =  0} }, /* Reset opacity */
+	{ MODKEY,               XK_l,            externalpipe,   {.v = openurlcmd } },
+	{ MODKEY,               XK_y,            externalpipe,   {.v = copyurlcmd } },
+	{ MODKEY,               XK_o,            externalpipe,   {.v = copyoutput } },
 };
 
 /*
