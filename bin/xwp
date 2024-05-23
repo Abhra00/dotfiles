@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# wallpaper directory #
+wall_dir=~/gruvbox-wallpapers/
+
+# finding random wallpaper
+if [ -z "$1" ]; then
+  wall="$(find "$wall_dir" -type f -name "*.jpg" -o -name "*.png" | shuf -n1)"
+else
+ wall="$1"
+fi
+
+# setting wallpaper
+xwallpaper --zoom $wall
+
