@@ -1,0 +1,194 @@
+diff --git a/st/config.def.h b/st_patched/config.def.h
+index 91ab8ca..59fc2a9 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -93,6 +93,10 @@ char *termname = "st-256color";
+  */
+ unsigned int tabspaces = 8;
+ 
++/* bg opacity */
++float alpha = 0.8;
++float alpha_def;
++
+ /* Terminal colors (16 first used in escape sequence) */
+ static const char *colorname[] = {
+ 	/* 8 normal colors */
+@@ -201,6 +205,9 @@ static Shortcut shortcuts[] = {
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++	{ MODKEY,               XK_bracketleft, chgalpha,       {.f = -1} }, /* Decrease opacity */
++	{ MODKEY|ShiftMask,     XK_braceright,  chgalpha,       {.f = +1} }, /* Increase opacity */
++	{ MODKEY,               XK_bracketright,chgalpha,       {.f =  0} }, /* Reset opacity */
+ };
+ 
+ /*
+diff --git a/st/st.h b/st_patched/st.h
+index fd3b0d8..cda8c13 100644
+--- a/st.h
++++ b/st.h
+@@ -124,3 +124,4 @@ extern unsigned int tabspaces;
+ extern unsigned int defaultfg;
+ extern unsigned int defaultbg;
+ extern unsigned int defaultcs;
++extern float alpha, alpha_def;
+diff --git a/st/config.mk b/st_patched/config.mk
+index 1e306f8..47c615e 100644
+--- a/config.mk
++++ b/config.mk
+@@ -16,7 +16,7 @@ PKG_CONFIG = pkg-config
+ INCS = -I$(X11INC) \
+        `$(PKG_CONFIG) --cflags fontconfig` \
+        `$(PKG_CONFIG) --cflags freetype2`
+-LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft \
++LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft -lXrender\
+        `$(PKG_CONFIG) --libs fontconfig` \
+        `$(PKG_CONFIG) --libs freetype2`
+ 
+diff --git a/st/x.c b/st_patched/x.c
+index aa09997..3b05a55 100644
+--- a/x.c
++++ b/x.c
+@@ -59,6 +59,7 @@ static void zoom(const Arg *);
+ static void zoomabs(const Arg *);
+ static void zoomreset(const Arg *);
+ static void ttysend(const Arg *);
++static void chgalpha(const Arg *);
+ 
+ /* config.h for applying patches and the configuration. */
+ #include "config.h"
+@@ -105,6 +106,7 @@ typedef struct {
+ 	XSetWindowAttributes attrs;
+ 	int scr;
+ 	int isfixed; /* is fixed geometry? */
++	int depth; /* bit depth */
+ 	int l, t; /* left and top offset */
+ 	int gm; /* geometry mask */
+ } XWindow;
+@@ -243,6 +245,7 @@ static char *usedfont = NULL;
+ static double usedfontsize = 0;
+ static double defaultfontsize = 0;
+ 
++static char *opt_alpha = NULL;
+ static char *opt_class = NULL;
+ static char **opt_cmd  = NULL;
+ static char *opt_embed = NULL;
+@@ -752,7 +755,7 @@ xresize(int col, int row)
+ 
+ 	XFreePixmap(xw.dpy, xw.buf);
+ 	xw.buf = XCreatePixmap(xw.dpy, xw.win, win.w, win.h,
+-			DefaultDepth(xw.dpy, xw.scr));
++			xw.depth);
+ 	XftDrawChange(xw.draw, xw.buf);
+ 	xclear(0, 0, win.w, win.h);
+ 
+@@ -812,6 +815,13 @@ xloadcols(void)
+ 			else
+ 				die("could not allocate color %d\n", i);
+ 		}
++
++	/* set alpha value of bg color */
++	if (opt_alpha)
++		alpha = strtof(opt_alpha, NULL);
++	dc.col[defaultbg].color.alpha = (unsigned short)(0xffff * alpha);
++	dc.col[defaultbg].pixel &= 0x00FFFFFF;
++	dc.col[defaultbg].pixel |= (unsigned char)(0xff * alpha) << 24;
+ 	loaded = 1;
+ }
+ 
+@@ -1134,11 +1144,23 @@ xinit(int cols, int rows)
+ 	Window parent;
+ 	pid_t thispid = getpid();
+ 	XColor xmousefg, xmousebg;
++	XWindowAttributes attr;
++	XVisualInfo vis;
+ 
+ 	if (!(xw.dpy = XOpenDisplay(NULL)))
+ 		die("can't open display\n");
+ 	xw.scr = XDefaultScreen(xw.dpy);
+-	xw.vis = XDefaultVisual(xw.dpy, xw.scr);
++
++	if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0)))) {
++		parent = XRootWindow(xw.dpy, xw.scr);
++		xw.depth = 32;
++	} else {
++		XGetWindowAttributes(xw.dpy, parent, &attr);
++		xw.depth = attr.depth;
++	}
++
++	XMatchVisualInfo(xw.dpy, xw.scr, xw.depth, TrueColor, &vis);
++	xw.vis = vis.visual;
+ 
+ 	/* font */
+ 	if (!FcInit())
+@@ -1147,8 +1169,11 @@ xinit(int cols, int rows)
+ 	usedfont = (opt_font == NULL)? font : opt_font;
+ 	xloadfonts(usedfont, 0);
+ 
++   /* Backup default alpha value */
++   alpha_def = alpha;
++
+ 	/* colors */
+-	xw.cmap = XDefaultColormap(xw.dpy, xw.scr);
++	xw.cmap = XCreateColormap(xw.dpy, parent, xw.vis, None);
+ 	xloadcols();
+ 
+ 	/* adjust fixed window geometry */
+@@ -1168,19 +1193,15 @@ xinit(int cols, int rows)
+ 		| ButtonMotionMask | ButtonPressMask | ButtonReleaseMask;
+ 	xw.attrs.colormap = xw.cmap;
+ 
+-	if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0))))
+-		parent = XRootWindow(xw.dpy, xw.scr);
+ 	xw.win = XCreateWindow(xw.dpy, parent, xw.l, xw.t,
+-			win.w, win.h, 0, XDefaultDepth(xw.dpy, xw.scr), InputOutput,
++			win.w, win.h, 0, xw.depth, InputOutput,
+ 			xw.vis, CWBackPixel | CWBorderPixel | CWBitGravity
+ 			| CWEventMask | CWColormap, &xw.attrs);
+ 
+ 	memset(&gcvalues, 0, sizeof(gcvalues));
+ 	gcvalues.graphics_exposures = False;
+-	dc.gc = XCreateGC(xw.dpy, parent, GCGraphicsExposures,
+-			&gcvalues);
+-	xw.buf = XCreatePixmap(xw.dpy, xw.win, win.w, win.h,
+-			DefaultDepth(xw.dpy, xw.scr));
++	xw.buf = XCreatePixmap(xw.dpy, xw.win, win.w, win.h, xw.depth);
++	dc.gc = XCreateGC(xw.dpy, xw.buf, GCGraphicsExposures, &gcvalues);
+ 	XSetForeground(xw.dpy, dc.gc, dc.col[defaultbg].pixel);
+ 	XFillRectangle(xw.dpy, xw.buf, dc.gc, 0, 0, win.w, win.h);
+ 
+@@ -1371,6 +1392,24 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
+ 	return numspecs;
+ }
+ 
++void
++chgalpha(const Arg *arg)
++{
++   if (arg->f == -1.0f && alpha >= 0.1f)
++      alpha -= 0.1f;
++   else if (arg->f == 1.0f && alpha < 1.0f)
++      alpha += 0.1f;
++   else if (arg->f == 0.0f)
++      alpha = alpha_def;
++   else
++      return;
++
++   dc.col[defaultbg].color.alpha = (unsigned short)(0xFFFF * alpha);
++   /* Required to remove artifacting from borderpx */
++   cresize(0, 0);
++   redraw();
++}
++
+ void
+ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, int y)
+ {
+@@ -2038,6 +2077,9 @@ main(int argc, char *argv[])
+ 	case 'a':
+ 		allowaltscreen = 0;
+ 		break;
++	case 'A':
++		opt_alpha = EARGF(usage());
++		break;
+ 	case 'c':
+ 		opt_class = EARGF(usage());
+ 		break;
