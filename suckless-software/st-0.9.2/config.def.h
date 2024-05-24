@@ -13,6 +13,13 @@ static char *font2[] = {
 	"NotoColorEmoji:pixelsize=10:antialias=true:autohint=true",
 };
 
+
+/* disable bold, italic and roman fonts globally */
+int disablebold = 0;
+int disableitalic = 1;
+int disableroman = 1;
+
+/* borders */ 
 static int borderpx = 2;
 
 /*
