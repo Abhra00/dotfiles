@@ -102,7 +102,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeTitle }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayOrientationHorz,
        NetWMFullscreen, NetWMSticky, NetActiveWindow, NetWMWindowType,
@@ -349,6 +349,8 @@ static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh;               /* bar height */
 static int lrpad;            /* sum of left and right padding for text */
+static int vp;               /* vertical padding for bar */
+static int sp;               /* side padding for bar */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
 static void (*handler[LASTEvent]) (XEvent *) = {
@@ -630,8 +632,8 @@ buttonpress(XEvent *e)
 			arg.ui = 1 << i;
 		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - statusw - getsystraywidth()) {
-			x = selmon->ww - statusw - getsystraywidth();
+		else if (ev->x > selmon->ww - statusw - getsystraywidth() - 2 * sp) {
+			x = selmon->ww - statusw - getsystraywidth() - 2 * sp;
 			click = ClkStatusText;
 
 			char *text, *s, ch;
@@ -1015,6 +1017,7 @@ dirtomon(int dir)
 	return m;
 }
 
+
 int
 drawstatusbar(Monitor *m, int bh, char* stext) {
 	int ret, i, j, w, x, len;
@@ -1057,15 +1060,15 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
                 isCode = 0;
         text = p;
 
-        w += 2; /* 1px padding on both sides */
+        w += horizpadbar; /* added padding on both sides */
         ret = m->ww - w;
 	x = m->ww - w - getsystraywidth();
 
         drw_setscheme(drw, scheme[LENGTH(colors)]);
         drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
         drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
-        drw_rect(drw, x, 0, w, bh, 1, 1);
-        x++;
+        drw_rect(drw, x - 2 * sp, 0, w, bh, 1, 1);
+        x += horizpadbar / 2;
 
         /* process status text */
         i = -1;
@@ -1075,7 +1078,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
                         text[i] = '\0';
                         w = TEXTW(text) - lrpad;
-                        drw_text(drw, x, 0, w, bh, 0, text, 0);
+                        drw_text(drw, x - 2 * sp, 0, w, bh, 0, text, 0);
 
                         x += w;
 
@@ -1111,7 +1114,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
                                         while (text[++i] != ',');
                                         int rh = atoi(text + ++i);
 
-                                        drw_rect(drw, rx + x, ry, rw, rh, 1, 0);
+                                        drw_rect(drw, rx + x - 2 * sp, ry, rw, rh, 1, 0);
                                 } else if (text[i] == 'f') {
                                         x += atoi(text + ++i);
                                 }
@@ -1125,7 +1128,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
         if (!isCode) {
                 w = TEXTW(text) - lrpad;
-                drw_text(drw, x, 0, w, bh, 0, text, 0);
+                drw_text(drw, x - 2 * sp, 0, w, bh, 0, text, 0);
         }
 
         drw_setscheme(drw, scheme[SchemeNorm]);
@@ -1133,6 +1136,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
         return ret;
 }
+
 
 
 void
@@ -1179,18 +1183,18 @@ drawbar(Monitor *m)
 
 	if ((w = m->ww - tw - stw - x) > bh) {
 		if (m->sel) {
-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			drw_setscheme(drw, scheme[m == selmon ? SchemeTitle : SchemeNorm]);
 			if (TEXTW(m->sel->name) > w) /* title is bigger than the width of the title rectangle, don't center */
-				drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+				drw_text(drw, x, 0, w - 2 * sp, bh, lrpad / 2, m->sel->name, 0);
 			else /* center window title */
-				drw_text(drw, x, 0, w, bh, (w - TEXTW(m->sel->name)) / 2, m->sel->name, 0);
+				drw_text(drw, x, 0, w - 2 * sp, bh, (w - TEXTW(m->sel->name)) / 2, m->sel->name, 0);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 			if (m->sel->issticky)
 				drw_polygon(drw, x + boxs, m->sel->isfloating ? boxs * 2 + boxw : boxs, stickyiconbb.x, stickyiconbb.y, boxw, boxw * stickyiconbb.y / stickyiconbb.x, stickyicon, LENGTH(stickyicon), Nonconvex, m->sel->tags & m->tagset[m->seltags]);
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
-			drw_rect(drw, x, 0, w, bh, 1, 1);
+			drw_rect(drw, x, 0, w - 2 * sp, bh, 1, 1);
 		}
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
@@ -2046,7 +2050,7 @@ resizebarwin(Monitor *m) {
 	unsigned int w = m->ww;
 	if (showsystray && m == systraytomon(m))
 		w -= getsystraywidth();
-	XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, w, bh);
+	XMoveResizeWindow(dpy, m->barwin, m->wx + sp, m->by + vp, w -  2 * sp, bh);
 }
 
 void
@@ -2433,9 +2437,12 @@ setup(void)
 	drw = drw_create(dpy, screen, root, sw, sh);
 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
 		die("no fonts could be loaded.");
-	lrpad = drw->fonts->h;
-	bh = drw->fonts->h + 2;
+	lrpad = drw->fonts->h + horizpadbar;
+	bh = drw->fonts->h + vertpadbar;
+	sp = sidepad;
+	vp = (topbar == 1) ? vertpad : - vertpad;
 	updategeom();
+
 	/* init atoms */
 	utf8string = XInternAtom(dpy, "UTF8_STRING", False);
 	wmatom[WMProtocols] = XInternAtom(dpy, "WM_PROTOCOLS", False);
@@ -2881,7 +2888,7 @@ updatebars(void)
 		w = m->ww;
 		if (showsystray && m == systraytomon(m))
 			w -= getsystraywidth();
-		m->barwin = XCreateWindow(dpy, root, m->wx, m->by, w, bh, 0, DefaultDepth(dpy, screen),
+		m->barwin = XCreateWindow(dpy, root, m->wx + sp, m->by + vp, w - 2 * sp, bh, 0, DefaultDepth(dpy, screen),
 				CopyFromParent, DefaultVisual(dpy, screen),
 				CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa);
 		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
@@ -2898,11 +2905,11 @@ updatebarpos(Monitor *m)
 	m->wy = m->my;
 	m->wh = m->mh;
 	if (m->showbar) {
-		m->wh -= bh;
-		m->by = m->topbar ? m->wy : m->wy + m->wh;
-		m->wy = m->topbar ? m->wy + bh : m->wy;
+		m->wh = m->wh - vertpad - bh;
+		m->by = m->topbar ? m->wy : m->wy + m->wh + vertpad;
+		m->wy = m->topbar ? m->wy + bh + vp : m->wy;
 	} else
-		m->by = -bh;
+		m->by = -bh - vp;
 }
 
 void
@@ -3070,23 +3077,14 @@ updatestatus(void)
 void
 updatesystrayicongeom(Client *i, int w, int h)
 {
-	if (i) {
-		i->h = bh;
-		if (w == h)
-			i->w = bh;
-		else if (h == bh)
-			i->w = w;
-		else
-			i->w = (int) ((float)bh * ((float)w / (float)h));
-		applysizehints(i, &(i->x), &(i->y), &(i->w), &(i->h), False);
-		/* force icons into the systray dimensions if they don't want to */
-		if (i->h > bh) {
-			if (i->w == i->h)
-				i->w = bh;
-			else
-				i->w = (int) ((float)bh * ((float)i->w / (float)i->h));
-			i->h = bh;
-		}
+ 	if (!i)
+ 		return;
+ 	applysizehints(i, &(i->x), &(i->y), &(i->w), &(i->h), False);
+ 	if (systrayiconsize >= bh) {
+ 		i->w = bh;
+ 	} else {
+ 		i->w = systrayiconsize;
+ 		i->h = systrayiconsize;
 	}
 }
 
@@ -3162,15 +3160,19 @@ updatesystray(void)
 		XMapRaised(dpy, i->win);
 		w += systrayspacing;
 		i->x = w;
-		XMoveResizeWindow(dpy, i->win, i->x, 0, i->w, i->h);
+		if (systrayiconsize >= bh)
+			i->y = 0;
+		else
+			i->y = (bh - systrayiconsize) / 2;
+		XMoveResizeWindow(dpy, i->win, i->x, i->y, i->w, i->h);
 		w += i->w;
 		if (i->mon != m)
 			i->mon = m;
 	}
 	w = w ? w + systrayspacing : 1;
 	x -= w;
-	XMoveResizeWindow(dpy, systray->win, x, m->by, w, bh);
-	wc.x = x; wc.y = m->by; wc.width = w; wc.height = bh;
+	XMoveResizeWindow(dpy, systray->win, x - sp, m->by + vp, w, bh);
+	wc.x = x - sp; wc.y = m->by + vp; wc.width = w; wc.height = bh;
 	wc.stack_mode = Above; wc.sibling = m->barwin;
 	XConfigureWindow(dpy, systray->win, CWX|CWY|CWWidth|CWHeight|CWSibling|CWStackMode, &wc);
 	XMapWindow(dpy, systray->win);
