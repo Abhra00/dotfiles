@@ -25,28 +25,38 @@ static int floatposgrid_x           	  = 5;        /* float grid columns */
 static int floatposgrid_y           	  = 5;        /* float grid rows */
 static const char *fonts[]          	  = { "JetBrains Mono:size=10", "Noto Color Emoji:size=10", "FontAwesome:size=12", };
 static const char dmenufont[]       	  = "JetBrains Mono Nerd Font:size=12";
-static char normbgcolor[]           	  = "#222222";
-static char normbordercolor[]       	  = "#444444";
-static char normfgcolor[]           	  = "#bbbbbb";
-static char selfgcolor[]            	  = "#eeeeee";
-static char selbordercolor[]        	  = "#770000";
-static char selbgcolor[]            	  = "#005577";
-static char termcol0[]              	  = "#eeeeee"; 
-static char termcol1[]              	  = "#eeeeee"; 
-static char termcol2[]              	  = "#eeeeee"; 
-static char termcol3[]              	  = "#eeeeee";
-static char termcol4[]              	  = "#eeeeee";
-static char termcol5[]              	  = "#eeeeee";
-static char termcol6[]              	  = "#eeeeee";
-static char termcol7[]              	  = "#eeeeee";
-static char termcol8[]              	  = "#eeeeee";
-static char termcol9[]              	  = "#eeeeee";
-static char termcol10[]             	  = "#eeeeee";
-static char termcol11[]             	  = "#eeeeee";
-static char termcol12[]             	  = "#eeeeee";
-static char termcol13[]             	  = "#eeeeee";
-static char termcol14[]             	  = "#eeeeee";
-static char termcol15[]             	  = "#eeeeee";
+static char normbgcolor[]           	  = "#1d2021";
+static char normbordercolor[]       	  = "#282828";
+static char normfgcolor[]           	  = "#ebdbb2";
+static char selfgcolor[]            	  = "#fbf1c7";
+static char selbordercolor[]        	  = "#d65d0e";
+static char selbgcolor[]            	  = "#fbf1c7";
+static char coltag1[]                     = "#fabd2f"; // yellow
+static char coltag2[]                     = "#fb4934"; // red
+static char coltag3[]                     = "#83a598"; // blue
+static char coltag4[]                     = "#8ec07c"; // green
+static char coltag5[]                     = "#d3869b"; // purple
+static char coltag6[]                     = "#fe8019"; // orange
+static char coltag7[]                     = "#b8bb26"; // bright green
+static char coltag8[]                     = "#d65d0e"; // bright red
+static char coltag9[]                     = "#458588"; // dark blue
+static char termcol0[]                    = "#282828"; // background
+static char termcol1[]                    = "#cc241d"; // red
+static char termcol2[]                    = "#98971a"; // green
+static char termcol3[]                    = "#d79921"; // yellow
+static char termcol4[]                    = "#458588"; // blue
+static char termcol5[]                    = "#b16286"; // purple
+static char termcol6[]                    = "#689d6a"; // aqua
+static char termcol7[]                    = "#a89984"; // gray
+static char termcol8[]                    = "#928374"; // bright black
+static char termcol9[]                    = "#fb4934"; // bright red
+static char termcol10[]                   = "#b8bb26"; // bright green
+static char termcol11[]                   = "#fabd2f"; // bright yellow
+static char termcol12[]                   = "#83a598"; // bright blue
+static char termcol13[]                   = "#d3869b"; // bright purple
+static char termcol14[]                   = "#8ec07c"; // bright aqua
+static char termcol15[]                   = "#ebdbb2"; // white
+
 static char *termcolor[] = {
   termcol0,
   termcol1,
@@ -98,13 +108,26 @@ static const XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0}
 static const XPoint stickyiconbb    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
 
 /* tagging */
-static const char *tags[]              = { "\uf269", "\uf19d", "\uf121", "\uf07c", "\uf03d", "\uf15c", "\uf120", "\uf0e0", "\uf296" };
+static const char *tags[]              = { "\uf17c", "\uf19d", "\uf269", "\uf07c", "\uf03d", "\uf15c", "\uf120", "\uf0e0", "\uf296" };
 static const char *tagsalt[]           = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const int momentaryalttags      = 0;    /* 1 means alttags will show only when key is held down*/
 static const unsigned int ulinepad     = 5;    /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke  = 4;    /* thickness / height of the underline */
 static const unsigned int ulinevoffset = 0;    /* how far above the bottom of the bar the line should appear */
 static const int ulineall              = 0;    /* 1 to show underline on all tags, 0 for just the active ones */
+static char *tagsel[][2] = {
+       { coltag1, normbgcolor },
+       { coltag2, normbgcolor },
+       { coltag3, normbgcolor },
+       { coltag4, normbgcolor },
+       { coltag5, normbgcolor },
+       { coltag6, normbgcolor },
+       { coltag7, normbgcolor },
+       { coltag8, normbgcolor },
+       { coltag9, normbgcolor },
+};
+
+
 
 /* rules */
 static const Rule rules[] = {
@@ -184,7 +207,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-p", "Run:", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-p", "Run:", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *pmenucmd[] = { "pmenu", NULL };
 
