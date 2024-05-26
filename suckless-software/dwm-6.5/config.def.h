@@ -201,7 +201,11 @@ static const char *light_down[] = { "backlight", "down", NULL };
 /* dmenuemojicmd */
 static const char *emojicmd[]   = { "dmenuunicode",   NULL };
 
+/* torrentcmd */
+static const char *torrentcmd[]   = { "td-toggle",   NULL };
 
+/* screenshotcmd */
+static const char *sscmd[]   = { "flameshot", "gui", NULL };
 
 
 static const Key keys[] = {
@@ -222,7 +226,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
         { MODKEY|Mod1Mask,              XK_x,      spawn,          {.v = pmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_e,      spawn,          {.v = emojicmd } },	
+	{ MODKEY,			XK_e,      spawn,          {.v = emojicmd } },
+	{ MODKEY|ContorlMask,		XK_t,      spawn,          {.v = torrentcmd } },
+	{ MODKEY|ControlMask,		XK_s,      spawn,          {.v = sscmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
