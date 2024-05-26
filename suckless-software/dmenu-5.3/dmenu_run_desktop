@@ -1,2 +1,0 @@
-#!/bin/sh
-dmenu_path_desktop | dmenu "$@" | ${SHELL:-"/bin/sh"} &
