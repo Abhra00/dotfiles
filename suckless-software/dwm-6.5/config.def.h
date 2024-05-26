@@ -227,7 +227,7 @@ static const Key keys[] = {
         { MODKEY|Mod1Mask,              XK_x,      spawn,          {.v = pmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_e,      spawn,          {.v = emojicmd } },
-	{ MODKEY|ContorlMask,		XK_t,      spawn,          {.v = torrentcmd } },
+	{ MODKEY|ControlMask,		XK_t,      spawn,          {.v = torrentcmd } },
 	{ MODKEY|ControlMask,		XK_s,      spawn,          {.v = sscmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
