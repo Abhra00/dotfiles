@@ -23,7 +23,7 @@ static const int showbar            	  = 1;        /* 0 means no bar */
 static const int topbar             	  = 1;        /* 0 means bottom bar */
 static int floatposgrid_x           	  = 5;        /* float grid columns */
 static int floatposgrid_y           	  = 5;        /* float grid rows */
-static const char *fonts[]          	  = { "JetBrains Mono Nerd Font:size=10", "Noto Color Emoji:size=10", };
+static const char *fonts[]          	  = { "JetBrains Mono:size=10", "Noto Color Emoji:size=10", "FontAwesome:size=12", };
 static const char dmenufont[]       	  = "JetBrains Mono Nerd Font:size=12";
 static char normbgcolor[]           	  = "#222222";
 static char normbordercolor[]       	  = "#444444";
@@ -68,7 +68,7 @@ static char *termcolor[] = {
 static char *colors[][3] = {
        /*                 fg           bg            border   */
        [SchemeNorm]   = { normfgcolor, normbgcolor,  normbordercolor },
-       [SchemeSel]    = { selfgcolor,  selbgcolor,   selbordercolor  },
+       [SchemeSel]    = { normfgcolor, normbgcolor,  selbordercolor  },
        [SchemeTitle]  = { normfgcolor, normbgcolor,  normbordercolor },
 };
 
@@ -98,9 +98,13 @@ static const XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0}
 static const XPoint stickyiconbb    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
 
 /* tagging */
-static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
-static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
+static const char *tags[]              = { "\uf269", "\uf19d", "\uf121", "\uf07c", "\uf03d", "\uf15c", "\uf120", "\uf0e0", "\uf296" };
+static const char *tagsalt[]           = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const int momentaryalttags      = 0;    /* 1 means alttags will show only when key is held down*/
+static const unsigned int ulinepad     = 5;    /* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke  = 4;    /* thickness / height of the underline */
+static const unsigned int ulinevoffset = 0;    /* how far above the bottom of the bar the line should appear */
+static const int ulineall              = 0;    /* 1 to show underline on all tags, 0 for just the active ones */
 
 /* rules */
 static const Rule rules[] = {
