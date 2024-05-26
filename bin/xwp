@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # wallpaper directory #
-wall_dir=~/gruvbox-wallpapers/
+wall_dir=~/wallpapers/catpuccin
 
 # finding random wallpaper
 if [ -z "$1" ]; then

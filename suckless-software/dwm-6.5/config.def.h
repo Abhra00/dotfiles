@@ -23,7 +23,7 @@ static const int showbar            	  = 1;        /* 0 means no bar */
 static const int topbar             	  = 1;        /* 0 means bottom bar */
 static int floatposgrid_x           	  = 5;        /* float grid columns */
 static int floatposgrid_y           	  = 5;        /* float grid rows */
-static const char *fonts[]          	  = { "JetBrains Mono:size=10", "Noto Color Emoji:size=10", "FontAwesome:size=12", };
+static const char *fonts[]          	  = { "JetBrains Mono:size=10", "Symbols Nerd Font:size=12", };
 static const char dmenufont[]       	  = "JetBrains Mono Nerd Font:size=12";
 static char normbgcolor[]           	  = "#1d2021";
 static char normbordercolor[]       	  = "#282828";
