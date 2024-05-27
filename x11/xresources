@@ -1,8 +1,16 @@
 !! Transparency (0-1):
-*.alpha: 0.95
+*.alpha: 1.0
 
 !! Set a default font and font size as below:
-*.font: JetBrains Mono:size=14
+*.font: JetBrains Mono:size=10
+
+
+!! Bar Padding
+*.vertpad:     10 	/* vertical padding between bar & edge of screen */
+*.sidepad:     10 	/* side padding between bar & edge of screen */
+*.horizpadbar: 5  	/* horizontal padding of status */
+*.vertpadbar:  10 	/* vertical padding of status */
+
 
 /* name		dark	light */
 /* black	0	8 */

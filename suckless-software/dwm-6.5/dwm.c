@@ -37,6 +37,7 @@
 #include <X11/Xproto.h>
 #include <X11/Xresource.h>
 #include <X11/Xutil.h>
+#include <X11/Xresource.h>
 #ifdef XINERAMA
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
@@ -206,6 +207,19 @@ struct Systray {
 	Client *icons;
 };
 
+/* Xresources preferences */
+enum resource_type {
+	STRING = 0,
+	INTEGER = 1,
+	FLOAT = 2
+};
+
+typedef struct {
+	char *name;
+	enum resource_type type;
+	void *dst;
+} ResourcePref;
+
 /* function declarations */
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
@@ -331,6 +345,8 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void xrdb(const Arg *arg);
 static void zoom(const Arg *arg);
+static void load_xresources(void);
+static void resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst);
 
 static pid_t getparentprocess(pid_t p);
 static int isdescprocess(pid_t p, pid_t c);
@@ -1689,37 +1705,31 @@ loadxrdb()
       xrdb = XrmGetStringDatabase(resm);
 
       if (xrdb != NULL) {
-	XRDB_LOAD_COLOR("dwm.color0", normbordercolor);
-	XRDB_LOAD_COLOR("dwm.color8", selbordercolor);
-	XRDB_LOAD_COLOR("dwm.color0", normbgcolor);
-	XRDB_LOAD_COLOR("dwm.color4", normfgcolor);
-	XRDB_LOAD_COLOR("dwm.color0", selfgcolor);
-	XRDB_LOAD_COLOR("dwm.color4", selbgcolor);
-	XRDB_LOAD_COLOR("dwm.color1", coltag1);
-	XRDB_LOAD_COLOR("dwm.color2", coltag2);
-	XRDB_LOAD_COLOR("dwm.color3", coltag3);
-	XRDB_LOAD_COLOR("dwm.color4", coltag4);
-	XRDB_LOAD_COLOR("dwm.color5", coltag5);
-	XRDB_LOAD_COLOR("dwm.color6", coltag6);
-	XRDB_LOAD_COLOR("dwm.color7", coltag7);
-	XRDB_LOAD_COLOR("dwm.color9", coltag8);
-	XRDB_LOAD_COLOR("dwm.color10", coltag9);
-        XRDB_LOAD_COLOR("color0",  termcol0);
-        XRDB_LOAD_COLOR("color1",  termcol1);
-        XRDB_LOAD_COLOR("color2",  termcol2);
-        XRDB_LOAD_COLOR("color3",  termcol3);
-        XRDB_LOAD_COLOR("color4",  termcol4);
-        XRDB_LOAD_COLOR("color5",  termcol5);
-        XRDB_LOAD_COLOR("color6",  termcol6);
-        XRDB_LOAD_COLOR("color7",  termcol7);
-        XRDB_LOAD_COLOR("color8",  termcol8);
-        XRDB_LOAD_COLOR("color9",  termcol9);
-        XRDB_LOAD_COLOR("color10", termcol10);
-        XRDB_LOAD_COLOR("color11", termcol11);
-        XRDB_LOAD_COLOR("color12", termcol12);
-        XRDB_LOAD_COLOR("color13", termcol13);
-        XRDB_LOAD_COLOR("color14", termcol14);
-        XRDB_LOAD_COLOR("color15", termcol15);
+	XRDB_LOAD_COLOR("dwm.color1", 	coltag1);
+	XRDB_LOAD_COLOR("dwm.color2", 	coltag2);
+	XRDB_LOAD_COLOR("dwm.color3", 	coltag3);
+	XRDB_LOAD_COLOR("dwm.color4", 	coltag4);
+	XRDB_LOAD_COLOR("dwm.color5", 	coltag5);
+	XRDB_LOAD_COLOR("dwm.color6", 	coltag6);
+	XRDB_LOAD_COLOR("dwm.color7", 	coltag7);
+	XRDB_LOAD_COLOR("dwm.color9", 	coltag8);
+	XRDB_LOAD_COLOR("dwm.color10", 	coltag9);
+        XRDB_LOAD_COLOR("color0",  	termcol0);
+        XRDB_LOAD_COLOR("color1",  	termcol1);
+        XRDB_LOAD_COLOR("color2",  	termcol2);
+        XRDB_LOAD_COLOR("color3",  	termcol3);
+        XRDB_LOAD_COLOR("color4",  	termcol4);
+        XRDB_LOAD_COLOR("color5",  	termcol5);
+        XRDB_LOAD_COLOR("color6",  	termcol6);
+        XRDB_LOAD_COLOR("color7",  	termcol7);
+        XRDB_LOAD_COLOR("color8",  	termcol8);
+        XRDB_LOAD_COLOR("color9",  	termcol9);
+        XRDB_LOAD_COLOR("color10", 	termcol10);
+        XRDB_LOAD_COLOR("color11", 	termcol11);
+        XRDB_LOAD_COLOR("color12", 	termcol12);
+        XRDB_LOAD_COLOR("color13", 	termcol13);
+        XRDB_LOAD_COLOR("color14", 	termcol14);
+        XRDB_LOAD_COLOR("color15", 	termcol15);
       }
     }
   }
@@ -3535,6 +3545,7 @@ void
 xrdb(const Arg *arg)
 {
   loadxrdb();
+  load_xresources();
   int i;
   for (i = 0; i < LENGTH(colors); i++)
                 scheme[i] = drw_scm_create(drw, colors[i], 3);
@@ -3573,6 +3584,60 @@ zoom(const Arg *arg)
 	pop(c);
 }
 
+void
+resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst)
+{
+	char *sdst = NULL;
+	int *idst = NULL;
+	float *fdst = NULL;
+
+	sdst = dst;
+	idst = dst;
+	fdst = dst;
+
+	char fullname[256];
+	char *type;
+	XrmValue ret;
+
+	snprintf(fullname, sizeof(fullname), "%s.%s", "dwm", name);
+	fullname[sizeof(fullname) - 1] = '\0';
+
+	XrmGetResource(db, fullname, "*", &type, &ret);
+	if (!(ret.addr == NULL || strncmp("String", type, 64)))
+	{
+		switch (rtype) {
+		case STRING:
+			strcpy(sdst, ret.addr);
+			break;
+		case INTEGER:
+			*idst = strtoul(ret.addr, NULL, 10);
+			break;
+		case FLOAT:
+			*fdst = strtof(ret.addr, NULL);
+			break;
+		}
+	}
+}
+
+void
+load_xresources(void)
+{
+	Display *display;
+	char *resm;
+	XrmDatabase db;
+	ResourcePref *p;
+
+	display = XOpenDisplay(NULL);
+	resm = XResourceManagerString(display);
+	if (!resm)
+		return;
+
+	db = XrmGetStringDatabase(resm);
+	for (p = resources; p < resources + LENGTH(resources); p++)
+		resource_load(db, p->name, p->type, p->dst);
+	XCloseDisplay(display);
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -3588,6 +3653,7 @@ main(int argc, char *argv[])
                 die("dwm: cannot get xcb connection\n");
 	checkotherwm();
         XrmInitialize();
+	load_xresources();
         loadxrdb();
 	setup();
 #ifdef __OpenBSD__
