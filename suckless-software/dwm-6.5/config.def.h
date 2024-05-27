@@ -39,18 +39,23 @@ static int topbar             	    	  = 1;         /* 0 means bottom bar */
 static int floatposgrid_x           	  = 5;        /* float grid columns */
 static int floatposgrid_y           	  = 5;        /* float grid rows */
 
+
+/*-------------------------------------------colorful tags---------------------------------------------*/
+
+static const int colorfultag              = 1;        /* 0 means use SchemeSel for selected non vacant tag */
+
 /*-------------------------------------------fonts---------------------------------------------*/
 static const char *fonts[]          	  = { "JetBrains Mono:size=10", "Symbols Nerd Font:size=12", };
 static const char dmenufont[]       	  = "JetBrains Mono:size=12";
 
 /*-------------------------------------------color definitions---------------------------------------------*/
 
-static char normbgcolor[]           	  = "#222222";
-static char normbordercolor[]       	  = "#444444";
-static char normfgcolor[]           	  = "#bbbbbb";
-static char selfgcolor[]            	  = "#eeeeee";
-static char selbordercolor[]        	  = "#770000";
-static char selbgcolor[]            	  = "#005577";
+static char normbgcolor[]           	  = "#1d2021";
+static char normbordercolor[]       	  = "#458588";
+static char normfgcolor[]           	  = "#d5c4a1";
+static char selfgcolor[]            	  = "#ebdbb2";
+static char selbordercolor[]        	  = "#d65d0e";
+static char selbgcolor[]            	  = "#8ec07c";
 static char coltag1[]                     = "#fabd2f"; // yellow
 static char coltag2[]                     = "#fb4934"; // red
 static char coltag3[]                     = "#83a598"; // blue
@@ -96,10 +101,21 @@ static char *termcolor[] = {
   termcol15,
 };
 static char *colors[][3] = {
-       /*                 fg           bg            border   */
-       [SchemeNorm]   = { normfgcolor, normbgcolor,  normbordercolor },
-       [SchemeSel]    = { normfgcolor, normbgcolor,  selbordercolor  },
-       [SchemeTitle]  = { normfgcolor, normbgcolor,  normbordercolor },
+       /*                     fg           bg            border   */
+       [SchemeNorm]       = { normfgcolor, normbgcolor,  normbordercolor },
+       [SchemeSel]        = { normfgcolor, normbgcolor,  selbordercolor  },
+       [SchemeTitle]      = { selfgcolor,  normbgcolor,  normbordercolor },
+       [SchemeTag]        = { selfgcolor,  normbgcolor,  normbordercolor },
+       [SchemeTag1]       = { coltag1,     normbgcolor,  normbordercolor },
+       [SchemeTag2]       = { coltag2,     normbgcolor,  normbordercolor },
+       [SchemeTag3]       = { coltag3,     normbgcolor,  normbordercolor },
+       [SchemeTag4]       = { coltag4,     normbgcolor,  normbordercolor },
+       [SchemeTag5]       = { coltag5,     normbgcolor,  normbordercolor },
+       [SchemeTag6]       = { coltag6,     normbgcolor,  normbordercolor },
+       [SchemeTag7]       = { coltag7,     normbgcolor,  normbordercolor },
+       [SchemeTag8]       = { coltag8,     normbgcolor,  normbordercolor },
+       [SchemeTag9]       = { coltag9,     normbgcolor,  normbordercolor },
+       [SchemeLayout]     = { selbgcolor,  normbgcolor,  normbordercolor },
 };
 
 
@@ -135,19 +151,12 @@ static const unsigned int ulinepad     = 5;    /* horizontal padding between the
 static const unsigned int ulinestroke  = 4;    /* thickness / height of the underline */
 static const unsigned int ulinevoffset = 0;    /* how far above the bottom of the bar the line should appear */
 static const int ulineall              = 0;    /* 1 to show underline on all tags, 0 for just the active ones */
-static char *tagsel[][2] = {
-       { coltag1, normbgcolor },
-       { coltag2, normbgcolor },
-       { coltag3, normbgcolor },
-       { coltag4, normbgcolor },
-       { coltag5, normbgcolor },
-       { coltag6, normbgcolor },
-       { coltag7, normbgcolor },
-       { coltag8, normbgcolor },
-       { coltag9, normbgcolor },
+
+/* tag schemes */
+
+static const int tagschemes[] = {
+    SchemeTag1, SchemeTag2, SchemeTag3, SchemeTag4, SchemeTag5, SchemeTag6, SchemeTag7, SchemeTag8, SchemeTag9,
 };
-
-
 
 /* rules */
 static const Rule rules[] = {
@@ -209,8 +218,8 @@ ResourcePref resources[] = {
 		{ "color10",		STRING,	 &selbordercolor },
 		{ "color0",		STRING,	 &normbgcolor },
 		{ "color4",		STRING,	 &normfgcolor },
-		{ "color0",		STRING,	 &selfgcolor },
-		{ "color4",		STRING,	 &selbgcolor },
+		{ "color15",		STRING,	 &selfgcolor },
+		{ "color6",		STRING,	 &selbgcolor },
 		{ "borderpx",		INTEGER, &borderpx },
 		{ "fborderpx",          INTEGER, &fborderpx },
 		{ "snap",		INTEGER, &snap },
@@ -266,7 +275,7 @@ ResourcePref resources[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-p", "Run:", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-p", "Run:", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *pmenucmd[] = { "pmenu", NULL };
 
