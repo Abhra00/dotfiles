@@ -19,7 +19,7 @@ int disableitalic = 1;
 int disableroman = 1;
 
 /* borders */ 
-static int borderpx = 2;
+static int borderpx = 15;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -61,13 +61,19 @@ int allowaltscreen = 1;
 int allowwindowops = 0;
 
 /*
+ * Synchronized-Update timeout in ms
+ * https://gitlab.com/gnachman/iterm2/-/wikis/synchronized-updates-spec
+ */
+static uint su_timeout = 200;
+
+/*
  * draw latency range in ms - from new content/keypress/etc until drawing.
  * within this range, st draws when content stops arriving (idle). mostly it's
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 15;
-static double maxlatency = 40;
+static double minlatency = 8;
+static double maxlatency = 33;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking

@@ -2,3 +2,4 @@ alias ls='lsd'
 alias ll='lsd -l'
 alias la='lsd -a'
 alias g='git'
+alias st-update="xrdb merge $HOME/.config/x11/xresources && pidof st | xargs kill -s USR1"
