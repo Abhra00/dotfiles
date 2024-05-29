@@ -9,7 +9,7 @@ static int centered = 0;                    /* -c option; centers dmenu on scree
 static int min_width = 500;                 /* minimum width when centered */
 static const unsigned int alpha = 0xff;     /* Amount of opacity. 0xff is opaque */
 /* -fn option overrides fonts[0]; default X11 font or font set */
-static char font[] = "JetBrains Mono Nerd Font:size=12";
+static char font[] = "JetBrains Mono:size=12";
 static char *fonts[] = {
        font,
        "NotoColorEmoji:pixelsize=8:antialias=true:autohint=true"
