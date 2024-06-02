@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # wallpaper directory #
-wall_dir=~/wallpapers/pywalpapers
+wall_dir=~/wallpapers/gruvbox-wallpapers
 
 # finding random wallpaper
 if [ -z "$1" ]; then
