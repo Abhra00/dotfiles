@@ -1,24 +1,31 @@
 [global]
-    monitor = 0
-    follow = keyboard
-    width = 370
-    height = 350
-    offset = 10x92
-    padding = 10
-    horizontal_padding = 10
-    transparency = 0
-    font = Monospace 12
-    format = "<b>%s</b>\n%b"
-    icon_path = usr/share/icons/Papirus-Dark/48x48/actions/:/usr/share/icons/Papirus-Dark/48x48/apps/:/usr/share/icons/Papirus-Dark/48x48/devices/:/usr/share/icons/Papirus-Dark/48x48/emblems/:/usr/share/icons/Papirus-Dark/48x48/emotes/:/usr/share/icons/Papirus-Dark/48x48/mimetypes/:/usr/share/icons/Papirus-Dark/48x48/places/:/usr/share/icons/Papirus-Dark/48x48/status/:/home/bugs/.config/icons/
-    corner_radius = 10
+monitor = 0
+frame_color = "#89b4fa"
+separator_color= frame
+follow = keyboard
+width = 370
+height = 350
+offset = 10x92
+padding = 10
+horizontal_padding = 10
+transparency = 0
+font = IosevkaMayuKaiCodePro 12
+format = "<b>%s</b>\n%b"
+min_icon_size = 32
+max_icon_size = 128
+icon_path = usr/share/icons/Papirus-Dark/48x48/actions/:/usr/share/icons/Papirus-Dark/48x48/apps/:/usr/share/icons/Papirus-Dark/48x48/devices/:/usr/share/icons/Papirus-Dark/48x48/emblems/:/usr/share/icons/Papirus-Dark/48x48/emotes/:/usr/share/icons/Papirus-Dark/48x48/mimetypes/:/usr/share/icons/Papirus-Dark/48x48/places/:/usr/share/icons/Papirus-Dark/48x48/status/:/home/bugs/.config/icons/
+corner_radius = 10
+
 [urgency_low]
     background = "#1d2021"
     foreground = "#928374"
+    frame_color = "#1d2021"
     timeout = 3
 
 [urgency_normal]
     foreground = "#ebdbb2"
     background = "#1d2021"
+    frame_color = "#1d2021"
     timeout = 5
 
 [urgency_critical]

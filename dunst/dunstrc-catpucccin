@@ -17,12 +17,17 @@ corner_radius = 10
 [urgency_low]
 background = "#1e1e2e"
 foreground = "#cdd6f4"
+frame_color = "#1e1e2e"
+timeout = 3
 
 [urgency_normal]
 background = "#1e1e2e"
 foreground = "#cdd6f4"
+frame_color = "#1e1e2e"
+timeout = 3
 
 [urgency_critical]
 background = "#1e1e2e"
 foreground = "#cdd6f4"
 frame_color = "#fab387"
+timeout = 10
