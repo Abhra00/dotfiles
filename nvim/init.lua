@@ -1,4 +1,3 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
 if vim.loader then
   vim.loader.enable()
 end
@@ -8,4 +7,5 @@ _G.dd = function(...)
 end
 vim.print = _G.dd
 
+-- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")

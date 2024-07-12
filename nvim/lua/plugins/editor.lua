@@ -1,4 +1,30 @@
 return {
+  -- Folke flash seraching
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    keys = {
+      { "s", false },
+      {
+        "z",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "<C-z>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
+  },
+  -- Color codes stuff
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
@@ -20,7 +46,7 @@ return {
       },
     },
   },
-
+  -- Git stuffs
   {
     "dinhhuy258/git.nvim",
     event = "BufReadPre",
@@ -34,8 +60,9 @@ return {
     },
   },
 
+  -- Telescope(the fuzzy finder)
   {
-    "telescope.nvim",
+    "nvim-telescope/telescope.nvim",
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",

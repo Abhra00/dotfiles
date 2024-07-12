@@ -2,14 +2,11 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- Mapping leader key to <Space>
-vim.g.mapleader = " "
+vim.g.mapleader = " " -- Mapping leader key to <Space>
 
--- Encoding
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 
--- Basic options
 vim.opt.number = true
 
 vim.opt.title = true
@@ -23,7 +20,7 @@ vim.opt.laststatus = 3
 vim.opt.expandtab = true
 vim.opt.scrolloff = 10
 vim.opt.shell = "zsh"
-vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
+vim.opt.backupskip = { "/tmp/*" }
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
 vim.opt.smarttab = true
