@@ -1,0 +1,42 @@
+
+[colors]
+foreground = "#839495"
+background = "#00141A"
+cursor_bg = "#FDF6E2"
+cursor_border = "#FDF6E2"
+cursor_fg = "#00141A"
+selection_bg = "#FDF6E2"
+selection_fg = "#00141A"
+
+ansi = ["#00141A", "#DC312E", "#859900", "#B38600", "#278BD3", "#D33682", "#2AA298", "#EDE7D4"]
+brights = ["#002D38", "#F65351", "#B7FA00", "#FFBF00", "#47ADF5", "#F254A1", "#2BEEDE", "#FDF6E2"]
+
+[colors.tab_bar]
+inactive_tab_edge = "#002D38"
+background = "#00141A"
+
+[colors.tab_bar.active_tab]
+fg_color = "#839495"
+bg_color = "#00141A"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#002D38"
+fg_color = "#839495"
+
+[colors.tab_bar.inactive_tab_hover]
+bg_color = "#002D38"
+fg_color = "#839495"
+
+[colors.tab_bar.new_tab_hover]
+fg_color = "#002D38"
+bg_color = "#839495"
+
+[colors.tab_bar.new_tab]
+fg_color = "#839495"
+bg_color = "#00141A"
+
+[metadata]
+aliases = []
+author = "craftzdog"
+name = "solarized-osaka"
+
