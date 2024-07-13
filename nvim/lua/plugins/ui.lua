@@ -53,6 +53,19 @@ return {
     end,
   },
 
+  -- Animations
+  {
+    "echasnovski/mini.animate",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      opts.scroll = {
+        enable = false,
+      }
+      opts.cursor = {
+        enable = true,
+      }
+    end,
+  },
   --- Notifications
   {
     "rcarriga/nvim-notify",
