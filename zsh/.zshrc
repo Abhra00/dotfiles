@@ -44,7 +44,8 @@ zinit cdreplay -q
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # setting up autosuggestions color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#FDF6E2"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fdf6e2"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Using vim keybind
 bindkey -v
