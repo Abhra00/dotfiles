@@ -19,22 +19,16 @@ corner_radius = 10
 
 
 [urgency_low]
-    background = "#26273d"
-    highlight = "#31748f"
-    frame_color = "#31748f"
-    default_icon = "dialog-information"
-    format = "<b><span foreground='#31748f'>%s</span></b>\n%b"
+    background = "#16161e"
+    foreground = "#c0caf5"
+    frame_color = "#c0caf5"
 
 [urgency_normal]
-    background = "#362e3c"
-    highlight = "#f6c177"
-    frame_color = "#f6c177"
-    default_icon = "dialog-warning"
-    format = "<b><span foreground='#f6c177'>%s</span></b>\n%b"
+    background = "#1a1b26"
+    foreground = "#c0caf5"
+    frame_color = "#c0caf5"
 
 [urgency_critical]
-    background = "#35263d"
-    highlight = "#eb6f92"
-    frame_color = "#eb6f92"
-    default_icon = "dialog-error"
-    format = "<b><span foreground='#eb6f92'>%s</span></b>\n%b"
+    background = "#292e42"
+    foreground = "#db4b4b"
+    frame_color = "#db4b4b"

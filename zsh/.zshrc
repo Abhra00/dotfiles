@@ -3,24 +3,10 @@
 #   ┻ ┛┗┗   ┗┛┗ ┛┗  ┗┛┛┛┗┛ ┗
 #                           
 
-                                                           
-
-#Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-
 # Sourcing the zinit plugin
 source "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git/zinit.zsh"
 
-# The zenful prompt
-zinit ice depth"1" # git clone depth
-zinit light romkatv/powerlevel10k
-
-# Pretty Sudo Prompt
+# Zen Sudo Prompt
 export SUDO_PROMPT="$fg[red][sudo] $fg[yellow]password for $USER  :$fg[white]"
 
 # Add in zsh plugins
@@ -39,9 +25,6 @@ zinit snippet OMZP::command-not-found
 # Load completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # setting up autosuggestions color
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fdf6e2"
@@ -112,8 +95,8 @@ alias lt='tree'
 alias vim='nvim'
 alias c='clear'
 alias stu='xrdb $HOME/.config/x11/xresources && pidof st | xargs kill -s USR1'
+
 # Shell integrations
+eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-
-
