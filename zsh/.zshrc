@@ -111,7 +111,7 @@ alias ls='ls --color'
 alias lt='tree'
 alias vim='nvim'
 alias c='clear'
-
+alias stu='xrdb $HOME/.config/x11/xresources && pidof st | xargs kill -s USR1'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
