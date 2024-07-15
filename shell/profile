@@ -32,6 +32,7 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 # Solarized-Osaka LS_COLORS
 export LS_COLORS='di=34:fi=0:ln=35:mh=00:pi=93:so=35:bd=93:cd=93:or=91:ex=32:*.tar=95:*.tgz=95:*.arj=95:*.taz=95:*.lzh=95:*.zip=95:*.z=95:*.Z=95:*.gz=95:*.bz2=95:*.deb=95:*.rpm=95:*.jar=95:*.rar=95:*.ace=95:*.zoo=95:*.cpio=95:*.7z=95:*.rz=95:*.jpg=93:*.jpeg=93:*.gif=93:*.bmp=93:*.pbm=93:*.pgm=93:*.ppm=93:*.tga=93:*.xbm=93:*.xpm=93:*.tif=93:*.tiff=93:*.png=93:*.svg=93:*.svgz=93:*.mng=93:*.pcx=93:*.mov=95:*.mpg=95:*.mpeg=95:*.m2v=95:*.mkv=95:*.webm=95:*.ogm=95:*.mp4=95:*.m4v=95:*.mp4v=95:*.vob=95:*.qt=95:*.nuv=95:*.wmv=95:*.asf=95:*.rm=95:*.rmvb=95:*.flc=95:*.avi=95:*.fli=95:*.flv=95:*.gl=95:*.dl=95:*.xcf=93:*.xwd=93:*.yuv=95:*.cgm=95:*.emf=95:*.ogv=95:*.ogx=95:*.aac=93:*.au=93:*.flac=93:*.m4a=93:*.mid=93:*.midi=93:*.mka=93:*.mp3=93:*.mpc=93:*.ogg=93:*.ra=93:*.wav=93:*.oga=93:*.opus=93:*.spx=93:*.xspf=93:'
 #export GNUPGHOME="$XDG_DATA_HOME/gnupg"

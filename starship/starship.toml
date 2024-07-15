@@ -1,0 +1,27 @@
+format="$directory$git_branch$git_status$nodejs$lua$cmd_duration\n$shell$character"
+add_newline = false
+
+[character]
+success_symbol = "[#](green)"
+error_symbol = "[#](red)"
+vimcmd_symbol = "[#](purple)"
+
+
+[directory]
+truncation_length = 1
+format = "[󰉋 ](yellow) [$path]($style)[$read_only]($read_only_style) "
+read_only = "  "
+truncation_symbol = ""
+
+[git_branch]
+format = '\[[$symbol$branch]($style)\]'
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
+
+[nodejs]
+format = '\[[$symbol($version)]($style)\]'
+
+[lua]
+format = '\[[$symbol($version)]($style)\]'
+
