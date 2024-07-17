@@ -12,6 +12,7 @@ return {
         typescriptreact = { "prettier" },
         svelte = { "prettier" },
         css = { "prettier" },
+        cpp = { "clangd" },
         html = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },

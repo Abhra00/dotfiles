@@ -9,10 +9,17 @@ return {
       options = {
         theme = "tokyonight",
         icons_enabled = true,
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
       },
       sections = {
+        lualine_a = {
+          {
+            "mode",
+            right_padding = 2,
+            icon = "",
+          },
+        },
         lualine_x = {
           {
             lazy_status.updates,

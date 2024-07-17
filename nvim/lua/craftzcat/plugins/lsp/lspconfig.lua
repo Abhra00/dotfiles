@@ -100,6 +100,14 @@ return {
           end,
         })
       end,
+      ["clangd"] = function()
+        -- configure graphql language server
+        lspconfig["clangd"].setup({
+          capabilities = capabilities,
+          filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+          single_file_support = true,
+        })
+      end,
       ["graphql"] = function()
         -- configure graphql language server
         lspconfig["graphql"].setup({
@@ -134,4 +142,3 @@ return {
     })
   end,
 }
-

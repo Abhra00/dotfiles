@@ -30,6 +30,7 @@ return {
         "vtsls",
         "html",
         "cssls",
+        "clangd",
         "tailwindcss",
         "svelte",
         "lua_ls",
@@ -48,6 +49,7 @@ return {
         "black", -- python formatter
         "pylint",
         "eslint_d",
+        "clang-format",
       },
     })
   end,
