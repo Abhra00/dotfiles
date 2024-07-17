@@ -8,7 +8,7 @@ if wezterm.config_builder then
 end
 
 config.color_scheme_dirs = { "~/.config/wezterm/colors" }
-config.color_scheme = "solarized-osaka"
+config.color_scheme = "tokyonight-night"
 config.font = wezterm.font_with_fallback({
 	{ family = "Hack Nerd Font", scale = 1.2, weight = "Medium" },
 	{ family = "FantasqueSansM Nerd Font", scale = 1.3 },

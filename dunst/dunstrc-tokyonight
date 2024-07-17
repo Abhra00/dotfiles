@@ -17,21 +17,18 @@ max_icon_size = 128
 icon_path = usr/share/icons/Papirus-Dark/48x48/actions/:/usr/share/icons/Papirus-Dark/48x48/apps/:/usr/share/icons/Papirus-Dark/48x48/devices/:/usr/share/icons/Papirus-Dark/48x48/emblems/:/usr/share/icons/Papirus-Dark/48x48/emotes/:/usr/share/icons/Papirus-Dark/48x48/mimetypes/:/usr/share/icons/Papirus-Dark/48x48/places/:/usr/share/icons/Papirus-Dark/48x48/status/:/home/bugs/.config/icons/
 corner_radius = 10
 
-[urgency_low]
-background = "#00141A"
-foreground = "#839495"
-frame_color = "#00141A"
-timeout = 3
 
+[urgency_low]
+    background = "#16161e"
+    foreground = "#c0caf5"
+    frame_color = "#c0caf5"
 
 [urgency_normal]
-background = "#00141A"
-foreground = "#839495"
-frame_color = "#00141A"
-timeout = 3
+    background = "#1a1b26"
+    foreground = "#c0caf5"
+    frame_color = "#c0caf5"
 
 [urgency_critical]
-background = "#DC312E"
-foreground = "#00141A"
-frame_color = "#DC312E"
-timeout = 10
+    background = "#292e42"
+    foreground = "#db4b4b"
+    frame_color = "#db4b4b"
