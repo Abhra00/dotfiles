@@ -145,7 +145,7 @@ groups = [
         [
             DropDown(
                 "tunes",
-                "alacritty -e ncmpcpp",
+                "kitty -e ncmpcpp",
                 x=0.05,
                 y=0.02,
                 width=0.90,
@@ -159,7 +159,7 @@ groups = [
         [
             DropDown(
                 "filemanager",
-                "alacritty -e ranger",
+                "kitty -e ranger",
                 x=0.05,
                 y=0.02,
                 width=0.90,
@@ -173,7 +173,7 @@ groups = [
         [
             DropDown(
                 "term",
-                "alacritty",
+                "kitty",
                 x=0.12,
                 y=0.02,
                 width=0.75,
