@@ -1,0 +1,11 @@
+
+* {
+    background:     #1a1b26FF;  /* color0 */
+    background-alt: #2f3549FF;  /* color2 */
+    p-background:   #a9b1d6FF;  /* color5 */
+    foreground:     #c0caf5FF;  /* color6 */
+    selected:       #16161eFF;  /* color1 */
+    border:         #7aa2f7FF;  /* color7 */
+    active:         #9ece6aFF;  /* color9 */
+    urgent:         #f7768eFF;  /* color12 */
+}
