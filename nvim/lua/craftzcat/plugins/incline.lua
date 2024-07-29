@@ -1,14 +1,14 @@
 return {
   "b0o/incline.nvim",
   event = "BufReadPre",
-  dependencies = { "folke/tokyonight.nvim" },
+  dependencies = { "rose-pine/neovim", name = "rose-pine" },
   config = function()
-    local colors = require("tokyonight.colors").setup()
+    local colors = require("rose-pine.palette")
     require("incline").setup({
       highlight = {
         groups = {
-          InclineNormal = { guibg = colors.rainbow[3], guifg = colors.bg_dark },
-          InclineNormalNC = { guifg = colors.fg_dark, guibg = colors.blue7 },
+          InclineNormal = { guibg = colors.love, guifg = colors.base },
+          InclineNormalNC = { guifg = colors.base, guibg = colors.rose },
         },
       },
       window = { margin = { vertical = 0, horizontal = 1 } },

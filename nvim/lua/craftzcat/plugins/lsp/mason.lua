@@ -50,6 +50,7 @@ return {
         "pylint",
         "eslint_d",
         "clang-format",
+        "cpplint",
       },
     })
   end,

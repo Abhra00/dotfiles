@@ -5,7 +5,7 @@ Xft.hintstyle:	hintslight
 Xft.rgba:	rgb
 Xft.lcdfilter:	lcddefault
 
-st.font:         M+CodeLat50NerdFont:pixelsize=14
+st.font:         JetBrainsMono Nerd Font:pixelsize=14
 
 ! window padding
 st.borderpx: 20
@@ -13,22 +13,51 @@ st.borderpx: 20
 !- 0.1 to 0.9 = transparency
 st.alpha: 1.0
 
+/* rose-pine colors */
+*.background: #191724 
+*.foreground: #e0def4
+! overlay + muted
+*.color0: #26233a
+*.color8: #6e6a86
+! love
+*.color1: #eb6f92
+*.color9: #eb6f92
+! foam
+*.color2: #9ccfd8
+*.color10: #9ccfd8
+! gold
+*.color3: #f6c177
+*.color11: #f6c177
+! pine
+*.color4: #31748f
+*.color12: #31748f
+! iris
+*.color5: #c4a7e7
+*.color13: #c4a7e7
+! rose
+*.color6: #ebbcba
+*.color14: #ebbcba
+! text
+*.color7: #e0def4
+*.color15: #e0def4
+
+
 /* TokyoNight colors for Xresources */
-*.background: #1a1b26
-*.foreground: #c0caf5
-*.color0: #15161e
-*.color1: #f7768e
-*.color2: #9ece6a
-*.color3: #e0af68
-*.color4: #7aa2f7
-*.color5: #bb9af7
-*.color6: #7dcfff
-*.color7: #a9b1d6
-*.color8: #414868
-*.color9: #f7768e
-*.color10: #9ece6a
-*.color11: #e0af68
-*.color12: #7aa2f7
-*.color13: #bb9af7
-*.color14: #7dcfff
-*.color15: #c0caf5
+!!*.background: #1a1b26
+!!*.foreground: #c0caf5
+!!*.color0: #15161e
+!!*.color1: #f7768e
+!!*.color2: #9ece6a
+!!*.color3: #e0af68
+!!*.color4: #7aa2f7
+!!*.color5: #bb9af7
+!!*.color6: #7dcfff
+!!*.color7: #a9b1d6
+!!*.color8: #414868
+!!*.color9: #f7768e
+!!*.color10: #9ece6a
+!!*.color11: #e0af68
+!!*.color12: #7aa2f7
+!!*.color13: #bb9af7
+!!*.color14: #7dcfff
+!!*.color15: #c0caf5
