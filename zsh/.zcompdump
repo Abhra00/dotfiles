@@ -1,4 +1,4 @@
-#files: 1141	version: 5.9
+#files: 1097	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -25,7 +25,6 @@ _comps=(
 'add-zsh-hook' '_add-zsh-hook'
 'admin' '_sccs'
 'afew' '_afew'
-'alacritty' '_alacritty'
 'ali' '_mh'
 'alias' '_alias'
 'amaya' '_webbrowser'
@@ -100,7 +99,6 @@ _comps=(
 'bogofilter' '_bogofilter'
 'bogotune' '_bogofilter'
 'bogoutil' '_bogofilter'
-'bootctl' '_bootctl'
 'bower' '_bower'
 'bpython' '_bpython'
 'bpython2' '_bpython'
@@ -115,7 +113,6 @@ _comps=(
 'brctl' '_brctl'
 'bsdgrep' '_grep'
 'bsdtar' '_tar'
-'bspc' '_bspc'
 'btdownloadcurses' '_bittorrent'
 'btdownloadgui' '_bittorrent'
 'btdownloadheadless' '_bittorrent'
@@ -224,7 +221,6 @@ _comps=(
 'configure' '_configure'
 'console' '_console'
 'convert' '_imagemagick'
-'coredumpctl' '_coredumpctl'
 'cowsay' '_cowsay'
 'cowthink' '_cowsay'
 'cp' '_cp'
@@ -363,7 +359,6 @@ _comps=(
 'express' '_webbrowser'
 'extcheck' '_java'
 'extractres' '_psutils'
-'eza' '_eza'
 'fab' '_fab'
 'fail2ban-client' '_fail2ban-client'
 'fakeroot' '_fakeroot'
@@ -371,7 +366,6 @@ _comps=(
 'fc' '_fc'
 'fc-list' '_xft_fonts'
 'fc-match' '_xft_fonts'
-'fd' '_fd'
 'feh' '_feh'
 'fetchmail' '_fetchmail'
 'ffind' '_ffind'
@@ -413,8 +407,6 @@ _comps=(
 'fold' '_fold'
 'folder' '_mh'
 'folders' '_mh'
-'foot' '_foot'
-'footclient' '_footclient'
 'fortune' '_fortune'
 'forw' '_mh'
 'fprev' '_mh'
@@ -652,13 +644,10 @@ _comps=(
 'homestead' '_homestead'
 'host' '_host'
 'hostname' '_hostname'
-'hostnamectl' '_hostnamectl'
 'hotjava' '_webbrowser'
 'htop' '_htop'
 'http' '_httpie'
 'https' '_httpie'
-'hyprctl' '_hyprctl'
-'hyprpm' '_hyprpm'
 'ibus' '_ibus'
 'iceweasel' '_mozilla'
 'icombine' '_ispell'
@@ -722,12 +711,10 @@ _comps=(
 'joe' '_joe'
 'join' '_join'
 'jonas' '_jonas'
-'journalctl' '_journalctl'
 'jq' '_jq'
 'jrnl' '_jrnl'
 'kak' '_kak'
 'kdeconnect-cli' '_kdeconnect'
-'kernel-install' '_kernel-install'
 'keystone' '_openstack'
 'keytool' '_java'
 'kfmclient' '_kfmclient'
@@ -736,7 +723,6 @@ _comps=(
 'killall5' '_killall'
 'kioclient' '_kfmclient'
 'kitchen' '_kitchen'
-'kitty' '_kitty'
 'knife' '_knife'
 'knock' '_knock'
 'konqueror' '_webbrowser'
@@ -775,7 +761,6 @@ _comps=(
 'loadkeys' '_loadkeys'
 'local' '_typeset'
 'locale' '_locale'
-'localectl' '_localectl'
 'localedef' '_localedef'
 'locate' '_locate'
 'log' '_nothing'
@@ -795,7 +780,6 @@ _comps=(
 'ls' '_ls'
 'lsattr' '_lsattr'
 'lsblk' '_lsblk'
-'lsd' '_lsd'
 'lsdiff' '_patchutils'
 'lsinitcpio' '_mkinitcpio'
 'lsmod' '_modutils'
@@ -805,7 +789,6 @@ _comps=(
 'ltrace' '_ltrace'
 'lua' '_lua'
 'luarocks' '_luarocks'
-'luarocks-admin' '_luarocks-admin'
 'lunchy' '_lunchy'
 'lynx' '_lynx'
 'lz4' '_lz4'
@@ -816,7 +799,6 @@ _comps=(
 'lzma' '_xz'
 'lzop' '_lzop'
 'mac2unix' '_dos2unix'
-'machinectl' '_machinectl'
 'magnum' '_openstack'
 'mail' '_mail'
 'Mail' '_mail'
@@ -898,7 +880,6 @@ _comps=(
 'mpc' '_mpc'
 'mplayer' '_mplayer'
 'mpstat' '_sysstat'
-'mpv' '_mpv'
 'mr' '_myrepos'
 'mrd' '_mtools'
 'mread' '_mtools'
@@ -946,7 +927,6 @@ _comps=(
 'netrik' '_webbrowser'
 'netscape' '_netscape'
 'netstat' '_netstat'
-'networkctl' '_networkctl'
 'networkQuality' '_networkQuality'
 'neutron' '_openstack'
 'new' '_mh'
@@ -986,7 +966,6 @@ _comps=(
 'ogginfo' '_vorbis'
 'oksh' '_sh'
 'okular' '_okular'
-'oomctl' '_oomctl'
 'openssl' '_openssl'
 'openstack' '_openstack'
 'openvpn3' '_openvpn3'
@@ -1073,7 +1052,6 @@ _comps=(
 'pkgrm' '_pkgrm'
 'pkill' '_pgrep'
 'play' '_play'
-'playerctl' '_playerctl'
 'pldd' '_pids'
 'pm2' '_pm2'
 'pmake' '_make'
@@ -1191,11 +1169,9 @@ _comps=(
 'remsh' '_rlogin'
 'renice' '_renice'
 'repl' '_mh'
-'resolvectl' '_resolvectl'
 'restart' '_initctl'
 'retawq' '_webbrowser'
 'rfkill' '_rfkill'
-'rg' '_rg'
 'rgrep' '_grep'
 'rgview' '_vim'
 'rgvim' '_vim'
@@ -1228,11 +1204,9 @@ _comps=(
 'rubocop' '_rubocop'
 'ruby' '_ruby'
 'ruby-mri' '_ruby'
-'run0' '_run0'
 'run-help' '_run-help'
 'rup' '_hosts'
 'rusage' '_precommand'
-'rustup' '_rustup'
 'rview' '_vim'
 'rvim' '_vim'
 'rwho' '_hosts'
@@ -1324,7 +1298,6 @@ _comps=(
 'sqlite' '_sqlite'
 'sqlite3' '_sqlite'
 'sqsh' '_sqsh'
-'sqv' '_sqv'
 'sr' '_surfraw'
 'srm' '_srm'
 'srptool' '_gnutls'
@@ -1375,23 +1348,6 @@ _comps=(
 'swiftc' '_swift'
 'sync' '_nothing'
 'sysctl' '_sysctl'
-'systemctl' '_systemctl'
-'systemd-analyze' '_systemd-analyze'
-'systemd-ask-password' '_systemd'
-'systemd-cat' '_systemd'
-'systemd-cgls' '_systemd'
-'systemd-cgtop' '_systemd'
-'systemd-delta' '_systemd-delta'
-'systemd-detect-virt' '_systemd'
-'systemd-inhibit' '_systemd-inhibit'
-'systemd-machine-id-setup' '_systemd'
-'systemd-notify' '_systemd'
-'systemd-nspawn' '_systemd-nspawn'
-'systemd-path' '_systemd-path'
-'systemd-resolve' '_resolvectl'
-'systemd-run' '_systemd-run'
-'systemd-tmpfiles' '_systemd-tmpfiles'
-'systemd-tty-ask-password-agent' '_systemd'
 'tac' '_tac'
 'tacker' '_openstack'
 'tail' '_tail'
@@ -1420,7 +1376,6 @@ _comps=(
 'tig' '_git'
 '-tilde-' '_tilde'
 'time' '_precommand'
-'timedatectl' '_timedatectl'
 'timeout' '_timeout'
 'times' '_nothing'
 'tin' '_tin'
@@ -1687,9 +1642,7 @@ _comps=(
 'ypwhich' '_yp'
 'ypxfr' '_yp'
 'ytalk' '_other_accounts'
-'yt-dlp' '_yt-dlp'
 'zargs' '_zargs'
-'zathura' '_zathura'
 'zcalc' '_zcalc'
 '-zcalc-line-' '_zcalc_line'
 'zcash-cli' '_zcash-cli'
@@ -1894,20 +1847,11 @@ autoload -Uz _afew _android _archlinux-java _artisan _atach \
             _tmuxinator _tmuxp _tox _tsc _ts-node \
             _udisksctl _ufw _virtualbox _vnstat _wemux \
             _wg-quick _xsel _yarn _zcash-cli _zinit \
-            _alacritty _bluetoothctl _bootctl _bspc _busctl \
-            _cargo _chafa _coredumpctl _curl _dunst \
-            _dunstctl _eza _fd _foot _footclient \
-            _hostnamectl _hyprctl _hyprpm _img2sixel _journalctl \
-            _kernel-install _kitty _lf _libinput _localectl \
-            _loginctl _lsd _luarocks _luarocks-admin _machinectl \
-            _meson _mkinitcpio _mpv _networkctl _ninja \
-            _nvme _oomctl _pacman _paru _playerctl \
-            _pulseaudio _resolvectl _rg _run0 _rustup \
-            _sd_hosts_or_user_at_host _sd_machines _sd_outputmodes _sd_unit_files _sqv \
-            _systemctl _systemd _systemd-analyze _systemd-delta _systemd-inhibit \
-            _systemd-nspawn _systemd-path _systemd-run _systemd-tmpfiles _timedatectl \
-            _udevadm _udisks2 _wpctl _xwallpaper _yt-dlp \
-            _zathura _zoxide _cdr _all_labels _all_matches \
+            _bluetoothctl _busctl _cargo _chafa _curl \
+            _dunst _dunstctl _img2sixel _lf _libinput \
+            _loginctl _meson _mkinitcpio _ninja _nvme \
+            _pacman _paru _pulseaudio _udevadm _wpctl \
+            _xwallpaper _zoxide _cdr _all_labels _all_matches \
             _alternative _approximate _arg_compile _arguments _bash_completions \
             _cache_invalid _call_function _combination _complete _complete_debug \
             _complete_help _complete_help_generic _complete_tag _comp_locale _correct \

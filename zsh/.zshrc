@@ -22,6 +22,12 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::command-not-found
 
+# Load prompt
+fpath+="$HOME/.config/zsh/zen"
+autoload -Uz promptinit
+promptinit
+prompt zen
+
 # Load completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q
@@ -97,6 +103,5 @@ alias c='clear'
 alias stu='xrdb $HOME/.config/x11/xresources && pidof st | xargs kill -s USR1'
 
 # Shell integrations
-eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
