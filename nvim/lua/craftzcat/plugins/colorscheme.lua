@@ -1,29 +1,32 @@
-return {
-  "b0o/incline.nvim",
-  event = "BufReadPre",
-  dependencies = { "rose-pine/neovim", name = "rose-pine" },
-  config = function()
-    local colors = require("base16-colorscheme").colors
-    require("incline").setup({
-      highlight = {
-        groups = {
-          InclineNormal = { guibg = colors.base09, guifg = colors.base01 },
-          InclineNormalNC = { guifg = colors.base01, guibg = colors.base08 },
-        },
-      },
-      window = { margin = { vertical = 0, horizontal = 1 } },
-      hide = {
-        cursorline = true,
-      },
-      render = function(props)
-        local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-        if vim.bo[props.buf].modified then
-          filename = "[+] " .. filename
-        end
+function ColorMyNvim(color)
+  color = color or "base16-gruvbox-material-dark-hard"
+  vim.cmd.colorscheme(color)
 
-        local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-        return { { icon, guifg = color }, { " " }, { filename } }
-      end,
-    })
-  end,
+  -- -- Set transparency for various highlights
+  -- vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight NonText guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight LineNr guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight CursorLine guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight NormalNC guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight SignColumn guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight EndOfBuffer guibg=NONE ctermbg=NONE]])
+  --
+  -- -- Set transparency for Telescope highlights
+  -- vim.cmd([[highlight TelescopeNormal guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopeBorder guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopePromptNormal guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopePromptBorder guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopeResultsNormal guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopePreviewNormal guibg=NONE ctermbg=NONE]])
+  -- vim.cmd([[highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE]])
+end
+
+return {
+  {
+    "RRethy/base16-nvim",
+    config = function()
+      ColorMyNvim()
+    end,
+  },
 }
