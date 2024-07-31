@@ -1,14 +1,13 @@
 return {
   "b0o/incline.nvim",
   event = "BufReadPre",
-  dependencies = { "rose-pine/neovim", name = "rose-pine" },
   config = function()
-    local colors = require("rose-pine.palette")
+    local colors = require("base16-colorscheme").colors
     require("incline").setup({
       highlight = {
         groups = {
-          InclineNormal = { guibg = colors.love, guifg = colors.base },
-          InclineNormalNC = { guifg = colors.base, guibg = colors.rose },
+          InclineNormal = { guibg = colors.base08, guifg = colors.base01 },
+          InclineNormalNC = { guifg = colors.base01, guibg = colors.base09 },
         },
       },
       window = { margin = { vertical = 0, horizontal = 1 } },
