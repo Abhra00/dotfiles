@@ -1,30 +1,29 @@
 return {
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    opts = {
-      variant = "main", -- auto, main, moon, or dawn
-      styles = {
-        transparency = true,
+  "b0o/incline.nvim",
+  event = "BufReadPre",
+  dependencies = { "rose-pine/neovim", name = "rose-pine" },
+  config = function()
+    local colors = require("base16-colorscheme").colors
+    require("incline").setup({
+      highlight = {
+        groups = {
+          InclineNormal = { guibg = colors.base09, guifg = colors.base01 },
+          InclineNormalNC = { guifg = colors.base01, guibg = colors.base08 },
+        },
       },
-      highlight_groups = {
-        TelescopeBorder = { fg = "overlay", bg = "overlay" },
-        TelescopeNormal = { fg = "subtle", bg = "overlay" },
-        TelescopeSelection = { fg = "text", bg = "highlight_med" },
-        TelescopeSelectionCaret = { fg = "love", bg = "highlight_med" },
-        TelescopeMultiSelection = { fg = "text", bg = "highlight_high" },
-
-        TelescopeTitle = { fg = "base", bg = "love" },
-        TelescopePromptTitle = { fg = "base", bg = "pine" },
-        TelescopePreviewTitle = { fg = "base", bg = "iris" },
-
-        TelescopePromptNormal = { fg = "text", bg = "surface" },
-        TelescopePromptBorder = { fg = "surface", bg = "surface" },
+      window = { margin = { vertical = 0, horizontal = 1 } },
+      hide = {
+        cursorline = true,
       },
-    },
-    config = function(_, opts)
-      require("rose-pine").setup(opts)
-      vim.cmd("colorscheme rose-pine-main")
-    end,
-  },
+      render = function(props)
+        local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+        if vim.bo[props.buf].modified then
+          filename = "[+] " .. filename
+        end
+
+        local icon, color = require("nvim-web-devicons").get_icon_color(filename)
+        return { { icon, guifg = color }, { " " }, { filename } }
+      end,
+    })
+  end,
 }

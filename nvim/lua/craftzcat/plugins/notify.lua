@@ -16,8 +16,17 @@ return {
     end,
     background_colour = "FloatShadow",
   },
+  keys = {
+    {
+      "<leader>un",
+      function()
+        require("notify").dismiss({ silent = true, pending = true })
+      end,
+      desc = "Dismiss All Notifications",
+    },
+  },
   config = function(_, opts)
     require("notify").setup(opts)
     vim.notify = require("notify")
-  end
+  end,
 }

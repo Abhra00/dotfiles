@@ -7,7 +7,7 @@ return {
 
     lualine.setup({
       options = {
-        theme = "rose-pine",
+        theme = "base16",
         icons_enabled = true,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
@@ -24,7 +24,7 @@ return {
           {
             lazy_status.updates,
             cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" },
+            color = { fg = "#7daea3" },
           },
           { "encoding" },
           { "fileformat", symbols = { unix = "󰣇" } },
