@@ -149,6 +149,7 @@ keys = [
     # Rofi widgets
     Key([mod], "s", lazy.spawn("sshot"), desc='rofi screen shot widget'),
     Key([mod], "w", lazy.spawn("rofi-wifi-menu"), desc='rofi wifi menu'),
+
     # Mutimedia controls
     Key([], "XF86AudioLowerVolume", lazy.spawn("volume-bspwm down")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("volume-bspwm up")),
@@ -397,7 +398,7 @@ extension_defaults = widget_defaults.copy()
 def init_widgets_list():
     widgets_list = [
         widget.Image(
-                 filename = "~/.config/qtile/icons/arch.png",
+                 filename = "~/.config/qtile/icons/void.png",
                  scale = "False",
                  margin_y=-2,
                  background = colors[3],
@@ -506,7 +507,7 @@ def init_widgets_list():
                  fmt = '🖥  Mem: {} used',
                  decorations=[
                      BorderDecoration(
-                         colour = colors[8],
+                         colour = colors[3],
                          border_width = [0, 0, 2, 0],
                      )
                  ],
@@ -531,8 +532,12 @@ def init_widgets_list():
         widget.Spacer(length = 8),
         widget.Volume(
                  foreground = colors[7],
-                 fmt = '  Vol: {}',
-                 get_volume_command = "wpctl",
+                 fmt='  Vol: {}',
+                 get_volume_command = "~/.config/qtile/scripts/vol-helper",
+                 mouse_callbacks = {
+                     'Button4': lambda: qtile.cmd_spawn("volume up"),
+                     'Button5': lambda: qtile.cmd_spawn("volume down"),
+                     },
                  decorations=[
                      BorderDecoration(
                          colour = colors[7],
