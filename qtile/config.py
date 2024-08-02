@@ -32,7 +32,6 @@ from libqtile.lazy import lazy
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration, PowerLineDecoration
 from spotify import Spotify
-
 # from qtile_extras.widget import StatusNotifier
 import colors
 
@@ -40,7 +39,7 @@ mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 altmod = "mod1"           # alter mod key
 myTerm = "kitty"          # My terminal of choice
 myBrowser = "brave"       # My browser of choice
-myLauncher = "rofi -show drun -theme ~/.config/rofi/config.rasi"
+myLauncher = "launcher_t2"
 
 # Allows you to input a name when adding treetab section.
 @lazy.layout.function
@@ -72,7 +71,7 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "shift"], "q", lazy.spawn("dm-logout -r"), desc="Logout menu"),
+    Key([mod, "shift"], "q", lazy.spawn("powermenu_t5"), desc="Logout menu"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     
     # Switch between windows
@@ -147,6 +146,15 @@ keys = [
     Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
     Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor'),
     
+    # Rofi widgets
+    Key([mod], "s", lazy.spawn("sshot"), desc='rofi screen shot widget'),
+    Key([mod], "w", lazy.spawn("rofi-wifi-menu"), desc='rofi wifi menu'),
+    # Mutimedia controls
+    Key([], "XF86AudioLowerVolume", lazy.spawn("volume-bspwm down")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("volume-bspwm up")),
+    Key([], "XF86AudioMute", lazy.spawn("volume-bspwm mute")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("backlight-bspwm up")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("backlight-bspwm down")),
 ]
 
 groups = []
@@ -226,6 +234,18 @@ groups.append(
                 y=0.1,
             ),
             DropDown(
+                "spfm",
+                "kitty --class spfm -e yazi",
+                match=Match(wm_class="spfm"),
+                on_focus_lost_hide=False,
+                warp_pointer=False,
+                opacity=1.00,
+                height=0.50,
+                width=0.50,
+                x=0.25,
+                y=0.1,
+            ),
+            DropDown(
                 "btop",
                 "kitty --class sysmon -e btop",
                 match=Match(wm_class="sysmon"),
@@ -278,30 +298,35 @@ keys.extend(
         Key(
             [altmod, "shift"],
             "s",
+            lazy.group["scratchpad"].dropdown_toggle("spfm"),
+            desc="Terminal filemanager scratchpad",
+        ),
+        Key(
+            [altmod, "shift"],
+            "d",
             lazy.group["scratchpad"].dropdown_toggle("nmtui"),
             desc="Open nmtui",
         ),
         Key(
             [altmod, "shift"],
-            "d",
-            lazy.group["scratchpad"].dropdown_toggle("spotify"),
-            desc="Spotify scratchpad",
+            "f",
+            lazy.group["scratchpad"].dropdown_toggle("spotify"), desc="Spotify scratchpad",
         ),
         Key(
             [altmod, "shift"],
-            "f",
+            "g",
             lazy.group["scratchpad"].dropdown_toggle("btop"),
             desc="Btop system monitor",
         ),
         Key(
             [altmod, "shift"],
-            "g",
+            "h",
             lazy.group["scratchpad"].dropdown_toggle("pulsemixer"),
             desc="Htop system monitor",
         ),
         Key(
             [altmod, "shift"],
-            "h",
+            "j",
             lazy.group["scratchpad"].dropdown_toggle("ncmpcpp"),
             desc="Nvtop gpu monitor",
         ),
@@ -372,23 +397,22 @@ extension_defaults = widget_defaults.copy()
 def init_widgets_list():
     widgets_list = [
         widget.Image(
-                 filename = "~/.config/qtile/icons/qtile.png",
+                 filename = "~/.config/qtile/icons/arch.png",
                  scale = "False",
                  margin_y=-2,
+                 background = colors[3],
                  mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)},
-        ),
-        widget.TextBox(
-                 text = '|',
-                 font = "IosevkaMayukaiCodepro",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 18
-        ),
+                 decorations = [
+                     PowerLineDecoration(
+                         path = "arrow_left",
+                     ),
+                 ],
+                 ),
         widget.Prompt(
                  font = "IosevkaMayukaiCodepro",
                  fontsize=14,
                  foreground = colors[1]
-        ),
+                 ),
         widget.GroupBox(
                  font = "Noto Sans CJK JP Bold",
                  fontsize = 14,
@@ -413,7 +437,7 @@ def init_widgets_list():
                  foreground = colors[1],
                  padding = 2,
                  fontsize = 18
-        ),
+                 ),
         widget.CurrentLayoutIcon(
                  # custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
                  foreground = colors[1],
@@ -443,6 +467,22 @@ def init_widgets_list():
                  decorations=[
                      BorderDecoration(
                          colour = colors[3],
+                         border_width = [0, 0, 2, 0],
+                     )
+                 ],
+                 ),
+        widget.Spacer(length = 8),
+        widget.Battery(
+                 foreground = colors[6],
+                 format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                 charge_char="  ",
+                 full_char=" ",
+                 unknown_char="󱧥",
+                 discharge_char=" ",
+                 update_interval=5,
+                 decorations=[
+                     BorderDecoration(
+                         colour = colors[6],
                          border_width = [0, 0, 2, 0],
                      )
                  ],
@@ -517,7 +557,7 @@ def init_widgets_list():
                  format = "⏱  %a, %b %d - %H:%M",
                  decorations=[
                      BorderDecoration(
-                         colour = colors[8],
+                         colour = colors[5],
                          border_width = [0, 0, 2, 0],
                      )
                  ],
@@ -537,7 +577,7 @@ def init_widgets_screen1():
 # Set bar height and opacity, also set wallpaper
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=28),
-            wallpaper='~/myAestheticWalls/gruvbox-3.png',
+            wallpaper='~/gruvbox-wallpapers/wallpapers/anime/elias.jpg',
             wallpaper_mode='fill')]
 
 # Initiate functions for screens and widgets

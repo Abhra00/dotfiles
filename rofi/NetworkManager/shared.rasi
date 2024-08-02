@@ -1,0 +1,9 @@
+* {
+    font: "IosevkaMayukaiCodepro 9";
+    background:     #1D2021FF;
+    background-alt: #282828FF;
+    foreground:     #d4be98FF;
+    selected:       #7daea3FF;
+    active:         #a9b665FF;
+    urgent:         #ea6962FF;
+}
