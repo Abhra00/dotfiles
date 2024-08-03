@@ -1,6 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="px" height="px" viewBox="0 0 240 384" version="1.1">
-<g id="surface1">
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(49.019608%,68.235294%,63.921569%);fill-opacity:1;" d="M 240 48 C 240 38.550781 234.449219 30 225.824219 26.101562 C 217.199219 22.199219 207.074219 23.773438 200.023438 30.074219 L 98.851562 120 L 48 120 C 21.523438 120 0 141.523438 0 168 L 0 216 C 0 242.476562 21.523438 264 48 264 L 98.851562 264 L 200.023438 353.925781 C 207.074219 360.226562 217.199219 361.726562 225.824219 357.898438 C 234.449219 354.074219 240 345.449219 240 336 Z M 240 48 "/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" height="10" width="6.25" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#709ad2" d="M320 64c0-12.6-7.4-24-18.9-29.2s-25-3.1-34.4 5.3L131.8 160 64 160c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l67.8 0L266.7 471.9c9.4 8.4 22.9 10.4 34.4 5.3S320 460.6 320 448l0-384z"/></svg>
