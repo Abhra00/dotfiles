@@ -4,8 +4,7 @@
 # Profile file, runs on login. Environmental variables are set here.
 
 # Add all directories in `~/.local/bin` to $PATH
-export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -):$HOME/.config/rofi/scripts"
-
+export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 unsetopt PROMPT_SP 2>/dev/null
 
 # Default programs:
@@ -15,7 +14,7 @@ export TERMINAL_PROG="st"
 export BROWSER="firefox"
 
 # Desktop sessions for other wm's
-export XDG_CURRENT_DESKTOP="bspwm"
+# export XDG_CURRENT_DESKTOP="bspwm"
 
 # Change the default crypto/weather monitor sites.
 # export CRYPTOURL="rate.sx"
@@ -76,4 +75,4 @@ export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 
 # Start graphical server on user's current tty if not already running.
-# [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"

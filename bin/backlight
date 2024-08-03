@@ -4,7 +4,7 @@
 
 send_notification() {
 	brightness=$(printf "%.0f\n" "$(xbacklight -get)")
-	dunstify -a "Backlight" -u low -r 9994 -h int:value:"$brightness" -i "brightness" "Brightness" "Currently at $brightness%" -t 1000
+	dunstify -a "Backlight" -u low -r 9994 -h int:value:"$brightness" -i "brightness-dunst" "Brightness" "Currently at $brightness%" -t 1000
 }
 
 case $1 in
