@@ -28,7 +28,6 @@ st.alpha: 1.0
 ! special
 *.foreground:   #edeff0
 *.background:   #0c0e0f
-*.cursorColor:  #edeff0
 
 ! black
 *.color0:       #232526
@@ -43,12 +42,13 @@ st.alpha: 1.0
 *.color10:      #81c19b
 
 ! yellow
-*.color3:       #e88467
+*.color3:       #de8f78
 *.color11:      #e79881
 
 ! blue
-*.color4:       #5a84bc
+*.color4:       #6791c9
 *.color12:      #709ad2
+
 ! magenta
 *.color5:       #bc83e3
 *.color13:      #c58cec
@@ -58,5 +58,5 @@ st.alpha: 1.0
 *.color14:      #70b8ca
 
 ! white
-*.color7:       #e4e6e7
-*.color15:      #f2f4f5
+*color7:        #e4e6e7
+*color15:       #f2f4f5
