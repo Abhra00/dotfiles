@@ -17,18 +17,18 @@
     "separator": "    "
   },
   "modules": [
-    {
+     {
 	  	"type": "custom", // startofinfo
 	  	"format": "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
-	  },
+     },
+     {
+	  	"type": "custom", // start
+	  	"format": "  󰬐 󰬜󰬚󰬌 󰣇 󰬉󰬛󰬞"
+    },
     {
 	  	"type": "custom", // start
-	  	"format": " あなたには敵がいません"
-	  },
-	  {
-	  	"type": "custom", // start
-	  	"format": " You don't have enimies"
-	  },
+	  	"format": "  ありがとうございます"
+    },
     {
       "type": "custom",
       "format": "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"

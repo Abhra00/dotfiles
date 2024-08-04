@@ -9,7 +9,7 @@ xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment t
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-autostart="mpd picom dunst unclutter dwmblocks nm-applet"
+autostart="mpd picom dunst unclutter dwmblocks nm-applet pulsedaemon"
 
 for program in $autostart; do
 	pidof -sx "$program" || "$program" &
