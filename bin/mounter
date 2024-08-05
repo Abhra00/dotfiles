@@ -114,6 +114,6 @@ case "$chosen" in
 		number="${chosen%%:*}"
 		number="${chosen:1}"	# This is a bashism.
 		sudo -A simple-mtpfs -o allow_other -o fsname="simple-mtpfs-$(escape "$chosen")" --device "$number" "$mp"
-		notify-send "🤖 Android Mounted." "Android device mounted to $mp."
+		dunstify --icon=android-sdk --appname=Android --urgency=normal "Android Mount" "Android device mounted at $mp"
 		;;
 esac

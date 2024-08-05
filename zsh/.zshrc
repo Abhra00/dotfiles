@@ -29,22 +29,92 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::command-not-found
 
-#  ╔═╗┌─┐┌┬┐┌─┐┬  ┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
-#  ║  │ ││││├─┘│  ├┤  │ ││ ││││└─┐
-#  ╚═╝└─┘┴ ┴┴  ┴─┘└─┘ ┴ ┴└─┘┘└┘└─┘
-autoload -Uz compinit && compinit
+#  ╔═╗┌─┐┌┬┐┌─┐┬  ┌─┐┌┬┐┬┌─┐┌┐┌   ┬   ╦  ┌─┐┌─┐┌┬┐┬┌┐┌┌─┐  ╔═╗┌┐┌┌─┐┬┌┐┌┌─┐
+#  ║  │ ││││├─┘│  ├┤  │ ││ ││││  ┌┼─  ║  │ │├─┤ │││││││ ┬  ║╣ ││││ ┬││││├┤ 
+#  ╚═╝└─┘┴ ┴┴  ┴─┘└─┘ ┴ ┴└─┘┘└┘  └┘   ╩═╝└─┘┴ ┴─┴┘┴┘└┘└─┘  ╚═╝┘└┘└─┘┴┘└┘└─┘
+autoload -Uz compinit 
+
+for dump in ~/.config/zsh/zcompdump(N.mh+24); do
+  compinit -d ~/.config/zsh/zcompdump
+done
+
+compinit -C -d ~/.config/zsh/zcompdump
+
 autoload -Uz vcs_info
 precmd () { vcs_info }
 _comp_options+=(globdots)
-zinit cdreplay -q
+
+#  ╔═╗┌─┐┌┬┐┌─┐┬  ┌─┐┌┬┐┬┌─┐┌┐┌┌─┐  ╔═╗┌┬┐┬ ┬┬  ┌─┐
+#  ║  │ ││││├─┘│  ├┤  │ ││ ││││└─┐  ╚═╗ │ └┬┘│  ├┤ 
+#  ╚═╝└─┘┴ ┴┴  ┴─┘└─┘ ┴ ┴└─┘┘└┘└─┘  ╚═╝ ┴  ┴ ┴─┘└─┘
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
+zstyle ':completion:*' matcher-list \
+		'm:{a-zA-Z}={A-Za-z}' \
+		'+r:|[._-]=* r:|=*' \
+		'+l:|=*'
+zstyle ':completion:*:warnings' format "%B%F{red}No matches for:%f %F{magenta}%d%b"
+zstyle ':completion:*:descriptions' format '%F{yellow}[-- %d --]%f'
+zstyle ':vcs_info:*' formats ' %B%s-[%F{magenta}%f %F{yellow}%b%f]-'
 
 #  ╔═╗┬ ┬┌┬┐┌─┐  ┌─┐┬ ┬┌─┐┌─┐┌─┐┌─┐┌┬┐┬┌─┐┌┐┌  ┌─┐┌─┐┌┬┐┌┬┐┬┌┐┌┌─┐┌─┐
 #  ╠═╣│ │ │ │ │  └─┐│ ││ ┬│ ┬├┤ └─┐ │ ││ ││││  └─┐├┤  │  │ │││││ ┬└─┐
 #  ╩ ╩└─┘ ┴ └─┘  └─┘└─┘└─┘└─┘└─┘└─┘ ┴ ┴└─┘┘└┘  └─┘└─┘ ┴  ┴ ┴┘└┘└─┘└─┘
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fdf6e2"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#df5b61"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+#  ╦ ╦┌─┐┬┌┬┐┬┌┐┌┌─┐  ╔╦╗┌─┐┌┬┐┌─┐
+#  ║║║├─┤│ │ │││││ ┬   ║║│ │ │ └─┐
+#  ╚╩╝┴ ┴┴ ┴ ┴┘└┘└─┘  ═╩╝└─┘ ┴ └─┘
+expand-or-complete-with-dots() {
+  echo -n "\e[31m…\e[0m"
+  zle expand-or-complete
+  zle redisplay
+}
 
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+#  ╦ ╦┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
+#  ╠═╣│└─┐ │ │ │├┬┘└┬┘
+#  ╩ ╩┴└─┘ ┴ └─┘┴└─ ┴ 
+HISTSIZE=10000000
+SAVEHIST=10000000
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+#  ╔═╗┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
+#  ║ ║├─┘ │ ││ ││││└─┐
+#  ╚═╝┴   ┴ ┴└─┘┘└┘└─┘
+stty stop undef		    # Disable ctrl-s to freeze terminal.
+setopt interactive_comments
+setopt AUTOCD               # change directory just by typing its name
+setopt PROMPT_SUBST         # enable command substitution in prompt
+setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
+setopt LIST_PACKED	    # The completion menu takes less space.
+setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
+setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
+
+
+#  ╔═╗┌─┐┌┐┌  ╔═╗┬─┐┌─┐┌┬┐┌─┐┌┬┐
+#  ╔═╝├┤ │││  ╠═╝├┬┘│ ││││├─┘ │ 
+#  ╚═╝└─┘┘└┘  ╩  ┴└─└─┘┴ ┴┴   ┴ 
+function dir_icon {
+  if [[ "$PWD" == "$HOME" ]]; then
+    echo "%B%F{cyan}%f%b"
+  else
+    echo "%B%F{cyan}%f%b"
+  fi
+}
+PS1='%B%F{green}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
 
 #  ╦  ╦┬┌┬┐┌┐ ┬┌┐┌┌┬┐
 #  ╚╗╔╝││││├┴┐││││ ││
@@ -83,71 +153,6 @@ bindkey '^k' history-search-forward
 bindkey '^[w' kill-region
 bindkey '^y' autosuggest-accept
 bindkey -v '^?' backward-delete-char
-
-
-
-#  ╦ ╦┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
-#  ╠═╣│└─┐ │ │ │├┬┘└┬┘
-#  ╩ ╩┴└─┘ ┴ └─┘┴└─ ┴ 
-HISTSIZE=10000000
-SAVEHIST=10000000
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
-HISTDUP=erase
-
-#  ╔═╗┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
-#  ║ ║├─┘ │ ││ ││││└─┐
-#  ╚═╝┴   ┴ ┴└─┘┘└┘└─┘
-setopt PROMPT_SUBST 
-setopt MENU_COMPLETE
-setopt LIST_PACKED		   
-setopt AUTO_LIST
-setopt COMPLETE_IN_WORD  
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
-
-#  ╔═╗┌─┐┌┬┐┌─┐┬  ┌─┐┌┬┐┬┌─┐┌┐┌┌─┐  ╔═╗┌┬┐┬ ┬┬  ┌─┐
-#  ║  │ ││││├─┘│  ├┤  │ ││ ││││└─┐  ╚═╗ │ └┬┘│  ├┤ 
-#  ╚═╝└─┘┴ ┴┴  ┴─┘└─┘ ┴ ┴└─┘┘└┘└─┘  ╚═╝ ┴  ┴ ┴─┘└─┘
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} 'ma=48;5;197;1'
-zstyle ':completion:*' matcher-list \
-		'm:{a-zA-Z}={A-Za-z}' \
-		'+r:|[._-]=* r:|=*' \
-		'+l:|=*'
-zstyle ':completion:*:warnings' format "%B%F{red}No matches for:%f %F{magenta}%d%b"
-zstyle ':completion:*:descriptions' format '%F{yellow}[-- %d --]%f'
-zstyle ':vcs_info:*' formats ' %B%s-[%F{magenta}%f %F{yellow}%b%f]-'
-
-
-#  ╦ ╦┌─┐┬┌┬┐┬┌┐┌┌─┐  ╔╦╗┌─┐┌┬┐┌─┐
-#  ║║║├─┤│ │ │││││ ┬   ║║│ │ │ └─┐
-#  ╚╩╝┴ ┴┴ ┴ ┴┘└┘└─┘  ═╩╝└─┘ ┴ └─┘
-expand-or-complete-with-dots() {
-  echo -n "\e[31m…\e[0m"
-  zle expand-or-complete
-  zle redisplay
-}
-zle -N expand-or-complete-with-dots
-
-#  ╔═╗┌─┐┌┐┌  ╔═╗┬─┐┌─┐┌┬┐┌─┐┌┬┐
-#  ╔═╝├┤ │││  ╠═╝├┬┘│ ││││├─┘ │ 
-#  ╚═╝└─┘┘└┘  ╩  ┴└─└─┘┴ ┴┴   ┴ 
-function dir_icon {
-  if [[ "$PWD" == "$HOME" ]]; then
-    echo "%B%F{cyan}%f%b"
-  else
-    echo "%B%F{cyan}%f%b"
-  fi
-}
-PS1='%B%F{green}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
-
-
 
 #  ╔═╗┬  ┬┌─┐┌─┐┌─┐┌─┐
 #  ╠═╣│  │├─┤└─┐├┤ └─┐
