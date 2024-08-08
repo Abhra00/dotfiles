@@ -13,49 +13,81 @@ st.borderpx: 20
 !- 0.1 to 0.9 = transparency
 st.alpha: 1.0
 
+! hard contrast:  *.background: #1d2021
+! medium contrast *.background: #282828
+! soft contrast:  *.background: #32302f
+*.background: #1d2021
+*.foreground: #ebdbb2
+! Black + DarkGrey
+*.color0:  #282828
+*.color8:  #928374
+! DarkRed + Red
+*.color1:  #cc241d
+*.color9:  #fb4934
+! DarkGreen + Green
+*.color2:  #98971a
+*.color10: #b8bb26
+! DarkYellow + Yellow
+*.color3:  #d79921
+*.color11: #fabd2f
+! DarkBlue + Blue
+*.color4:  #458588
+*.color12: #83a598
+! DarkMagenta + Magenta
+*.color5:  #b16286
+*.color13: #d3869b
+! DarkCyan + Cyan
+*.color6:  #689d6a
+*.color14: #8ec07c
+! LightGrey + White
+*.color7:  #a89984
+*.color15: #ebdbb2
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!  ███╗   ██╗ ██████╗ ██████╗ ██████╗  !   
-!  ████╗  ██║██╔═══██╗██╔══██╗██╔══██╗ !   
-!  ██╔██╗ ██║██║   ██║██████╔╝██║  ██║ !   
-!  ██║╚██╗██║██║   ██║██╔══██╗██║  ██║ !   
-!  ██║ ╚████║╚██████╔╝██║  ██║██████╔╝ !   
-!  ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝  !   
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                         
-#define nord0 #2E3440
-#define nord1 #3B4252
-#define nord2 #434C5E
-#define nord3 #4C566A
-#define nord4 #D8DEE9
-#define nord5 #E5E9F0
-#define nord6 #ECEFF4
-#define nord7 #8FBCBB
-#define nord8 #88C0D0
-#define nord9 #81A1C1
-#define nord10 #5E81AC
-#define nord11 #BF616A
-#define nord12 #D08770
-#define nord13 #EBCB8B
-#define nord14 #A3BE8C
-#define nord15 #B48EAD
 
-*.foreground:   nord4
-*.background:   nord0
-*.cursorColor:  nord4
 
-*.color0: nord1
-*.color1: nord11
-*.color2: nord14
-*.color3: nord13
-*.color4: nord9
-*.color5: nord15
-*.color6: nord8
-*.color7: nord5
-*.color8: nord3
-*.color9: nord11
-*.color10: nord14
-*.color11: nord13
-*.color12: nord9
-*.color13: nord15
-*.color14: nord7
-*.color15: nord6
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!  ███╗   ██╗ ██████╗ ██████╗ ██████╗  !   
+!!  ████╗  ██║██╔═══██╗██╔══██╗██╔══██╗ !   
+!!  ██╔██╗ ██║██║   ██║██████╔╝██║  ██║ !   
+!!  ██║╚██╗██║██║   ██║██╔══██╗██║  ██║ !   
+!!  ██║ ╚████║╚██████╔╝██║  ██║██████╔╝ !   
+!!  ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝  !   
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                         
+!#define nord0 #2E3440
+!#define nord1 #3B4252
+!#define nord2 #434C5E
+!#define nord3 #4C566A
+!#define nord4 #D8DEE9
+!#define nord5 #E5E9F0
+!#define nord6 #ECEFF4
+!#define nord7 #8FBCBB
+!#define nord8 #88C0D0
+!#define nord9 #81A1C1
+!#define nord10 #5E81AC
+!#define nord11 #BF616A
+!#define nord12 #D08770
+!#define nord13 #EBCB8B
+!#define nord14 #A3BE8C
+!#define nord15 #B48EAD
+!
+!*.foreground:   nord4
+!*.background:   nord0
+!*.cursorColor:  nord4
+!
+!*.color0: nord1
+!*.color1: nord11
+!*.color2: nord14
+!*.color3: nord13
+!*.color4: nord9
+!*.color5: nord15
+!*.color6: nord8
+!*.color7: nord5
+!*.color8: nord3
+!*.color9: nord11
+!*.color10: nord14
+!*.color11: nord13
+!*.color12: nord9
+!*.color13: nord15
+!*.color14: nord7
+!*.color15: nord6
