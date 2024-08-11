@@ -33,7 +33,7 @@ corner_radius = 10
     foreground = "#2E3440"
     highlight = "#2E3440"
     frame_color = "#D8DEE9"
-    default_icon = "dialog-information"
+    default_icon = "preferences-desktop-notification-bell"
     format = "<b><span foreground='#2E3440'>%s</span></b>\n%b"
 
 [urgency_normal]
@@ -41,7 +41,7 @@ corner_radius = 10
     foreground = "#2E3440"
     highlight = "#2E3440"
     frame_color = "#D8DEE9"
-    default_icon = "dialog-information"
+    default_icon = "preferences-desktop-notification-bell"
     format = "<b><span foreground='#2E3440'>%s</span></b>\n%b"
 
 [urgency_critical]
