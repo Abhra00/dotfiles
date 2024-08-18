@@ -21,24 +21,24 @@ st.alpha: 1.0
 !     ██║   ╚██████╔╝██║  ██╗   ██║   ╚██████╔╝██║ ╚████║██║╚██████╔╝██║  ██║   ██║   
 !     ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                                                           
-*.background: #1a1b26
-*.foreground: #c0caf5
-*.color0: #15161e
-*.color1: #f7768e
-*.color2: #9ece6a
-*.color3: #e0af68
-*.color4: #7aa2f7
-*.color5: #bb9af7
-*.color6: #7dcfff
-*.color7: #a9b1d6
-*.color8: #414868
-*.color9: #f7768e
-*.color10: #9ece6a
-*.color11: #e0af68
-*.color12: #7aa2f7
-*.color13: #bb9af7
-*.color14: #7dcfff
-*.color15: #c0caf5
+!*.background: #1a1b26
+!*.foreground: #c0caf5
+!*.color0: #15161e
+!*.color1: #f7768e
+!*.color2: #9ece6a
+!*.color3: #e0af68
+!*.color4: #7aa2f7
+!*.color5: #bb9af7
+!*.color6: #7dcfff
+!*.color7: #a9b1d6
+!*.color8: #414868
+!*.color9: #f7768e
+!*.color10: #9ece6a
+!*.color11: #e0af68
+!*.color12: #7aa2f7
+!*.color13: #bb9af7
+!*.color14: #7dcfff
+!*.color15: #c0caf5
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!  ███╗   ██╗ ██████╗ ██████╗ ██████╗  !   
@@ -85,3 +85,37 @@ st.alpha: 1.0
 !*.color13: nord15
 !*.color14: nord7
 !*.color15: nord6
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! ▒█▀▀▀ ▒█░░▒█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀▀█ ▀▀█▀▀
+! ▒█▀▀▀ ░▒█▒█░ ▒█▀▀▀ ▒█▄▄▀ ▒█▀▀▀ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ░▀▀▀▄▄ ░▒█░░
+! ▒█▄▄▄ ░░▀▄▀░ ▒█▄▄▄ ▒█░▒█ ▒█░░░ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄▄█ ░▒█░░
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! special
+*.foreground:   #d3c6aa
+*.background:   #1e2326
+*.cursorColor:  #d3c6aa
+! black
+*.color0:       #414b50
+*.color8:       #475258
+! red
+*.color1:       #e67e80
+*.color9:       #e67e80
+! green
+*.color2:       #a7c080
+*.color10:      #a7c080
+! yellow
+*.color3:       #dbbc7f
+*.color11:      #dbbc7f
+! blue
+*.color4:       #7fbbb3
+*.color12:      #7fbbb3
+! magenta
+*.color5:       #d699b6
+*.color13:      #d699b6
+! cyan
+*.color6:       #83c092
+*.color14:      #83c092
+! white
+*.color7:       #d3c6aa
+*.color15:      #d3c6aa
