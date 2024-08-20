@@ -1,0 +1,11 @@
+#!/bin/sh
+
+black=#1E1E2E
+
+CHARGE=$(cat /sys/class/power_supply/BAT1/capacity)
+STATUS=$(cat /sys/class/power_supply/BAT1/status)
+if [ "$STATUS" = "Charging" ]; then
+	printf "^B4^^c$black^  ^d^ ^C4^$CHARGE%% $STATUS"
+else
+	printf "^B4^^c$black^  ^d^ ^C4^$CHARGE%% $STATUS"
+fi

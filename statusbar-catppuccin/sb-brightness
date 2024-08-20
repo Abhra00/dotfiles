@@ -1,0 +1,3 @@
+#!/bin/sh
+  printf "^C5^  "
+  printf "^C5^%.0f\n" $(cat /sys/class/backlight/*/brightness)

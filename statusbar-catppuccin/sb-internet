@@ -1,0 +1,6 @@
+#!/bin/sh
+black=#1E1E2E
+case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+	up) printf "^c$black^^B2^ 󰤨 ^d^%s" " ^C2^Connected" ;;
+	down) printf "^c$black^^B2^ 󰤭 ^d^%s" " ^C2^Disconnected" ;;
+esac

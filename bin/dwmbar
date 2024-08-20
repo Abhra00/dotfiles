@@ -1,0 +1,119 @@
+#!/bin/dash
+
+interval=0
+
+black=#1E1E2E
+
+cpu() {
+	cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+	printf "^B2^^c$black^ CPU "
+	printf "^d^^C2^ $cpu_val "
+}
+
+pkg_updates() {
+	updates=$({ timeout 20 checkupdates 2>/dev/null || true; } | wc -l)
+
+	if [ -z "$updates" ]; then
+		printf "  ^C6^    Fully Updated"
+	else
+		printf "  ^C6^    $updates""updates "
+	fi
+
+}
+
+battery() {
+	CHARGE=$(cat /sys/class/power_supply/BAT1/capacity)
+	STATUS=$(cat /sys/class/power_supply/BAT1/status)
+	if [ "$STATUS" = "Charging" ]; then
+		printf "^B4^^c$black^  ^d^ ^C4^$CHARGE%% $STATUS " 
+	else
+		printf "^B4^^c$black^  ^d^ ^C4^$CHARGE%% $STATUS "
+	fi
+}
+
+brightness() {
+	printf "^C5^  "
+	printf "^C5^%.0f \n" $(cat /sys/class/backlight/*/brightness)
+}
+
+mem() {
+	printf "^B4^^c$black^  "
+	printf "^d^^C4^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g) "
+}
+
+wlan() {
+	case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+		up) printf "^c$black^^B2^ 󰤨 ^d^%s" " ^C2^Connected " ;;
+		down) printf "^c$black^^B2^ 󰤭 ^d^%s" " ^C2^Disconnected " ;;
+	esac
+}
+
+clock() {
+	clock=$(date '+%I')
+
+	case "$clock" in
+		"00") icon="󱑊 " ;;
+		"01") icon="󱐿 " ;;
+		"02") icon="󱑀 " ;;
+		"03") icon="󱑁 " ;;
+		"04") icon="󱑂 " ;;
+		"05") icon="󱑃 " ;;
+		"06") icon="󱑄 " ;;
+		"07") icon="󱑅 " ;;
+		"08") icon="󱑆 " ;;
+		"09") icon="󱑇 " ;;
+		"10") icon="󱑈 " ;;
+		"11") icon="󱑉 " ;;
+		"12") icon="󱑊 " ;;
+	esac
+
+
+	printf "^c$black^ ^B4^ $icon"
+	printf "^d^^C4^ $(date '+%H:%M') "
+}
+
+calender() {
+	printf "^c$black^ ^B1^  "
+	printf "^d^^C1^ $(date '+%D') "
+}
+
+vol_bar() {
+	vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
+
+	# If muted, print 󰖁 and exit.
+	[ "$vol" != "${vol%\[MUTED\]}" ] && printf "^c$black^^B1^ 󰖁 ^d^ " && exit
+	
+	vol="${vol#Volume: }"
+	
+	split() {
+		# For ommiting the . without calling and external program.
+		IFS=$2
+		set -- $1
+		printf '%s' "$@"
+	}
+	
+	vol="$(printf "%.0f" "$(split "$vol" ".")")"
+	
+	case 1 in
+		$((vol >= 70)) ) icon="  " ;;
+		$((vol >= 30)) ) icon="  " ;;
+		$((vol >= 1)) ) icon="  " ;;
+		* ) printf "^c$black^^B1^ 󰖁 ^d^ " && exit ;;
+	esac
+	
+	printf "^B1^^c$black^$icon^d^ $vol%% "
+}
+
+weather() {
+	LOCATION=Memari
+	DATA=$(curl -s wttr.in/$LOCATION?format=1 | grep -o ".[0-9].*")
+	printf "^c$black^^B3^  ^d^^C3^${DATA} "
+}
+
+while true; do
+
+  [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
+  interval=$((interval + 1))
+
+  sleep 1 && xsetroot -name "$updates $(weather) $(battery) $(brightness) $(vol_bar) $(cpu) $(mem) $(wlan) $(clock) $(calender)"
+done

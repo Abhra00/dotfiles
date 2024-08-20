@@ -1,0 +1,10 @@
+#!/bin/sh
+
+updates=$({ timeout 20 checkupdates 2>/dev/null || true; } | wc -l) 
+
+
+if [ -z "$updates" ]; then
+    printf "  ^C6^    Fully Updated"
+else
+    printf "  ^C6^    $updates"" updates"
+fi

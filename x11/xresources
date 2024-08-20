@@ -5,117 +5,56 @@ Xft.hintstyle:	hintslight
 Xft.rgba:	rgb
 Xft.lcdfilter:	lcddefault
 
-st.font:         JetBrainsMono Nerd Font:style:medium:pixelsize=13
-
 ! window padding
 st.borderpx: 20
 
-!- 0.1 to 0.9 = transparency
-st.alpha: 1.0
+!-- values between 0.1  - 1.0 --! 
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!  ████████╗ ██████╗ ██╗  ██╗██╗   ██╗ ██████╗ ███╗   ██╗██╗ ██████╗ ██╗  ██╗████████╗
-!  ╚══██╔══╝██╔═══██╗██║ ██╔╝╚██╗ ██╔╝██╔═══██╗████╗  ██║██║██╔════╝ ██║  ██║╚══██╔══╝
-!     ██║   ██║   ██║█████╔╝  ╚████╔╝ ██║   ██║██╔██╗ ██║██║██║  ███╗███████║   ██║   
-!     ██║   ██║   ██║██╔═██╗   ╚██╔╝  ██║   ██║██║╚██╗██║██║██║   ██║██╔══██║   ██║   
-!     ██║   ╚██████╔╝██║  ██╗   ██║   ╚██████╔╝██║ ╚████║██║╚██████╔╝██║  ██║   ██║   
-!     ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                                                           
-!*.background: #1a1b26
-!*.foreground: #c0caf5
-!*.color0: #15161e
-!*.color1: #f7768e
-!*.color2: #9ece6a
-!*.color3: #e0af68
-!*.color4: #7aa2f7
-!*.color5: #bb9af7
-!*.color6: #7dcfff
-!*.color7: #a9b1d6
-!*.color8: #414868
-!*.color9: #f7768e
-!*.color10: #9ece6a
-!*.color11: #e0af68
-!*.color12: #7aa2f7
-!*.color13: #bb9af7
-!*.color14: #7dcfff
-!*.color15: #c0caf5
+st.alpha: 1.0 
+st.font:           JetBrainsMono Nerd Font:style:medium:pixelsize=15
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!  ███╗   ██╗ ██████╗ ██████╗ ██████╗  !   
-!!  ████╗  ██║██╔═══██╗██╔══██╗██╔══██╗ !   
-!!  ██╔██╗ ██║██║   ██║██████╔╝██║  ██║ !   
-!!  ██║╚██╗██║██║   ██║██╔══██╗██║  ██║ !   
-!!  ██║ ╚████║╚██████╔╝██║  ██║██████╔╝ !   
-!!  ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝  !   
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                         
-!#define nord0 #2E3440
-!#define nord1 #3B4252
-!#define nord2 #434C5E
-!#define nord3 #4C566A
-!#define nord4 #D8DEE9
-!#define nord5 #E5E9F0
-!#define nord6 #ECEFF4
-!#define nord7 #8FBCBB
-!#define nord8 #88C0D0
-!#define nord9 #81A1C1
-!#define nord10 #5E81AC
-!#define nord11 #BF616A
-!#define nord12 #D08770
-!#define nord13 #EBCB8B
-!#define nord14 #A3BE8C
-!#define nord15 #B48EAD
-!
-!*.foreground:   nord4
-!*.background:   nord0
-!*.cursorColor:  nord4
-!
-!*.color0: nord1
-!*.color1: nord11
-!*.color2: nord14
-!*.color3: nord13
-!*.color4: nord9
-!*.color5: nord15
-!*.color6: nord8
-!*.color7: nord5
-!*.color8: nord3
-!*.color9: nord11
-!*.color10: nord14
-!*.color11: nord13
-!*.color12: nord9
-!*.color13: nord15
-!*.color14: nord7
-!*.color15: nord6
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! ▒█▀▀▀ ▒█░░▒█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀▀█ ▀▀█▀▀
-! ▒█▀▀▀ ░▒█▒█░ ▒█▀▀▀ ▒█▄▄▀ ▒█▀▀▀ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ░▀▀▀▄▄ ░▒█░░
-! ▒█▄▄▄ ░░▀▄▀░ ▒█▄▄▄ ▒█░▒█ ▒█░░░ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄▄█ ░▒█░░
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! special
-*.foreground:   #d3c6aa
-*.background:   #1e2326
-*.cursorColor:  #d3c6aa
-! black
-*.color0:       #414b50
-*.color8:       #475258
-! red
-*.color1:       #e67e80
-*.color9:       #e67e80
-! green
-*.color2:       #a7c080
-*.color10:      #a7c080
-! yellow
-*.color3:       #dbbc7f
-*.color11:      #dbbc7f
-! blue
-*.color4:       #7fbbb3
-*.color12:      #7fbbb3
-! magenta
-*.color5:       #d699b6
-*.color13:      #d699b6
-! cyan
-*.color6:       #83c092
-*.color14:      #83c092
-! white
-*.color7:       #d3c6aa
-*.color15:      #d3c6aa
+!!
+!! ▒█▀▀▀█ ▒█▄░▒█ ▒█▀▀▀ ▒█▀▀▄ ░█▀▀█ ▒█▀▀█ ▒█░▄▀ 
+!! ▒█░░▒█ ▒█▒█▒█ ▒█▀▀▀ ▒█░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█▀▄░ 
+!! ▒█▄▄▄█ ▒█░░▀█ ▒█▄▄▄ ▒█▄▄▀ ▒█░▒█ ▒█░▒█ ▒█░▒█
+!!
+
+#define base00 #282c34
+#define base01 #353b45
+#define base02 #3e4451
+#define base03 #545862
+#define base04 #565c64
+#define base05 #abb2bf
+#define base06 #b6bdca
+#define base07 #c8ccd4
+#define base08 #e06c75
+#define base09 #d19a66
+#define base0A #e5c07b
+#define base0B #98c379
+#define base0C #56b6c2
+#define base0D #61afef
+#define base0E #c678dd
+#define base0F #be5046
+
+*foreground:   base07
+*background:   #1e222a
+*cursorColor:  base05
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base08
+*color10:      base0B
+*color11:      base0A
+*color12:      base0D
+*color13:      base0E
+*color14:      base0C
+*color15:      base07

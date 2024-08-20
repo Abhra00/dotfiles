@@ -7,16 +7,13 @@ case $1 in
 		# Set the volume on (if it was muted)
 		wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
 		wpctl set-volume -l 2.0 @DEFAULT_AUDIO_SINK@ 5%+
-		kill -44 $(pidof dwmblocks)
 		;;
 	down)
 		wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
 		wpctl set-volume -l 2.0 @DEFAULT_AUDIO_SINK@ 5%-
-		kill -44 $(pidof dwmblocks)
 		;;
 	mute)
 		wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-		kill -44 $(pidof dwmblocks)
 		;;
 esac
 

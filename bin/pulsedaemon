@@ -2,8 +2,8 @@
 # This script should be autostarted with X session
 # It signals volume block to update on audio related events
 pactl subscribe |
-    while IFS='' read -r output ; do
-        case "$output" in
-		*" sink "*) kill -44 $(pidof dwmblocks) ;;
-        esac
-    done
+while IFS='' read -r output ; do
+	case "$output" in
+		*" sink "*) kill -39 $(pidof dwmblocks) ;;
+	esac
+done

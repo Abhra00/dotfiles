@@ -1,0 +1,5 @@
+#!/bin/sh
+
+black=#1E1E2E
+printf "^B4^^c$black^  "
+printf "^d^^C4^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"

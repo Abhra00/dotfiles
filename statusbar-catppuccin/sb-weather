@@ -1,0 +1,7 @@
+#!/bin/sh
+
+black=#1E1E2E
+LOCATION=Memari
+DATA=$(curl -s wttr.in/$LOCATION?format=1 | grep -o ".[0-9].*")
+printf "^c$black^^B3^  ^d^^C3^${DATA}" 
+
