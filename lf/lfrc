@@ -21,6 +21,7 @@ set ifs "\n"
 set scrolloff 10
 set icons
 set period 1
+set drawbox true
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set cleaner '~/.config/lf/cleaner'
 set previewer '~/.config/lf/preview'
